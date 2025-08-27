@@ -20,6 +20,7 @@ gem "image_processing", "~> 1.2"
 gem "jbuilder"
 gem "marksmith"
 gem "mcp"
+gem "mission_control-jobs"
 gem "pg"
 gem "ruby-readability", require: false
 gem "stimulus-rails"

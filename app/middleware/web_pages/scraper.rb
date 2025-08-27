@@ -17,7 +17,7 @@ module WebPages
 
       title = document.at("title")&.text&.strip
 
-      readability_doc = Readability::Document.new(html, tags: %w[p h1 h2 h3])
+      readability_doc = Readability::Document.new(html, tags: %w[div section article p h1 h2 h3 h4 h5 h6])
       content_html    = readability_doc.content
 
       cleaned_content = ActionController::Base.helpers.strip_tags(content_html)

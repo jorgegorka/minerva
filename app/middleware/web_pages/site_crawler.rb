@@ -11,10 +11,12 @@ module WebPages
       return if depth > @max_depth || visited.include?(url)
 
       visited << url
-      page = WebPageScraper.new(url).scrape
-      return unless page
 
       doc = Nokogiri::HTML(HTTParty.get(url).body)
+      return unless doc
+
+      PageScraperJob.perform_later(url)
+
       internal_links(doc).each do |link|
         crawl(link, depth + 1)
         sleep 0.4
