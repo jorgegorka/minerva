@@ -107,11 +107,11 @@ GEM
     concurrent-ruby (1.3.5)
     connection_pool (2.5.3)
     crass (1.0.6)
+    csv (3.3.5)
     date (3.4.1)
     debug (1.11.0)
       irb (~> 1.10)
       reline (>= 0.3.8)
-    domain_name (0.6.20240107)
     dotenv (3.1.8)
     drb (2.2.3)
     ed25519 (1.4.0)
@@ -119,27 +119,6 @@ GEM
     erubi (1.13.1)
     et-orbi (1.3.0)
       tzinfo
-    faraday (2.13.4)
-      faraday-net_http (>= 2.0, < 3.5)
-      json
-      logger
-    faraday-cookie_jar (0.0.7)
-      faraday (>= 0.8.0)
-      http-cookie (~> 1.0.0)
-    faraday-encoding (0.0.6)
-      faraday
-    faraday-follow_redirects (0.3.0)
-      faraday (>= 1, < 3)
-    faraday-gzip (2.0.1)
-      faraday (>= 1.0)
-      zlib (~> 3.0)
-    faraday-http-cache (2.5.1)
-      faraday (>= 0.8)
-    faraday-net_http (3.4.1)
-      net-http (>= 0.5.0)
-    faraday-retry (2.3.2)
-      faraday (~> 2.0)
-    fastimage (2.4.0)
     ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-aarch64-linux-musl)
     ffi (1.17.2-arm-linux-gnu)
@@ -154,8 +133,10 @@ GEM
     globalid (1.2.1)
       activesupport (>= 6.1)
     guess_html_encoding (0.0.11)
-    http-cookie (1.0.8)
-      domain_name (~> 0.5)
+    httparty (0.23.1)
+      csv
+      mini_mime (>= 1.0.0)
+      multi_xml (>= 0.5.2)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     image_processing (1.14.0)
@@ -207,26 +188,13 @@ GEM
     mcp (0.2.0)
       json-schema (>= 4.1)
       json_rpc_handler (~> 0.1)
-    metainspector (5.16.0)
-      addressable (~> 2.8.4)
-      faraday (~> 2.5)
-      faraday-cookie_jar (~> 0.0)
-      faraday-encoding (~> 0.0)
-      faraday-follow_redirects (~> 0.3)
-      faraday-gzip (>= 0.1, < 3.0)
-      faraday-http-cache (~> 2.5)
-      faraday-retry (~> 2.0)
-      fastimage (~> 2.2)
-      nesty (~> 1.0)
-      nokogiri (~> 1.18.8)
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
     minitest (5.25.5)
     msgpack (1.8.0)
-    nesty (1.0.2)
-    net-http (0.6.0)
-      uri
+    multi_xml (0.7.2)
+      bigdecimal (~> 3.1)
     net-imap (0.5.9)
       date
       net-protocol
@@ -442,7 +410,6 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.7.3)
-    zlib (3.2.1)
 
 PLATFORMS
   aarch64-linux
@@ -462,13 +429,13 @@ DEPENDENCIES
   capybara
   commonmarker
   debug
+  httparty
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
   kamal
   marksmith
   mcp
-  metainspector
   pg
   propshaft
   puma (>= 5.0)

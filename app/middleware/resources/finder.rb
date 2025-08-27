@@ -18,7 +18,6 @@ module Resources
       MCP::Resource.new(
         uri: "file://docs/#{document.id}",
         name: document.title,
-        title: document.title,
         description: document.content,
         mime_type: "text/markdown"
       )

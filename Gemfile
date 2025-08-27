@@ -15,11 +15,11 @@ gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 
 gem "commonmarker"
+gem "httparty"
 gem "image_processing", "~> 1.2"
 gem "jbuilder"
 gem "marksmith"
 gem "mcp"
-gem "metainspector", require: false
 gem "pg"
 gem "ruby-readability", require: false
 gem "stimulus-rails"

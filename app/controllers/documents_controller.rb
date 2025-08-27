@@ -14,9 +14,9 @@ class DocumentsController < ApplicationController
 
   def create
     @document = Document.new(document_params)
-    
+
     if @document.save
-      redirect_to @document, notice: 'Document was successfully created.'
+      redirect_to @document, notice: "Document was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class DocumentsController < ApplicationController
 
   def update
     if @document.update(document_params)
-      redirect_to @document, notice: 'Document was successfully updated.'
+      redirect_to @document, notice: "Document was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -35,7 +35,7 @@ class DocumentsController < ApplicationController
 
   def destroy
     @document.destroy
-    redirect_to documents_url, notice: 'Document was successfully deleted.'
+    redirect_to documents_url, notice: "Document was successfully deleted."
   end
 
   private
