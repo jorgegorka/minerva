@@ -1,0 +1,31 @@
+<div class="container">
+  <h1>Documents</h1>
+  
+  <div class="nav-links">
+    <%= link_to "New Document", new_document_path, class: "btn btn-primary btn-sm" %>
+  </div>
+
+  <% if notice %>
+    <div class="alert alert-success"><%= notice %></div>
+  <% end %>
+
+  <% if @documents.any? %>
+    <% @documents.each do |document| %>
+      <div class="card">
+        <h3><%= document.title %></h3>
+        <p><%= truncate(document.content, length: 200) %></p>
+        <p class="text-muted"><small>Created: <%= document.created_at.strftime("%B %d, %Y at %I:%M %p") %></small></p>
+        <div class="card-actions">
+          <%= link_to "View", document_path(document), class: "btn btn-secondary btn-sm" %>
+          <%= link_to "Edit", edit_document_path(document), class: "btn btn-secondary btn-sm" %>
+          <%= link_to "Delete", document_path(document), method: :delete,
+                      confirm: "Are you sure?", class: "btn btn-danger btn-sm" %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="card">
+      <p>No documents found. <%= link_to "Create your first document", new_document_path %>!</p>
+    </div>
+  <% end %>
+</div>

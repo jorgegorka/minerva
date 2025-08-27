@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 16) %>
+  username: <%= ENV.fetch("POSTGRES_USER", 'user') %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD", 'password') %>
+  host: <%= ENV.fetch("POSTGRES_HOST", '127.0.0.1') %>
+
+development:
+  <<: *default
+  database: mcp_development
+
+test:
+  <<: *default
+  database: mcp_test<%= ENV.fetch('TEST_ENV_NUMBER', nil) %>
+
+production:
+  <<: *default
+  database: mcp
