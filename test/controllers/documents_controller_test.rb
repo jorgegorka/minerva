@@ -61,8 +61,8 @@ class DocumentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should redirect when deleting from show page via turbo stream" do
     assert_difference("Document.count", -1) do
-      delete document_url(@document), 
-        headers: { 
+      delete document_url(@document),
+        headers: {
           "Accept" => "text/vnd.turbo-stream.html",
           "Referer" => document_url(@document)
         }
