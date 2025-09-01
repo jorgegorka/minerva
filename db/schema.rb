@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_27_171019) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_28_173650) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "vector"
@@ -55,6 +55,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_27_171019) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "url"
+    t.string "type"
+    t.vector "embedding", limit: 768
+    t.string "embedding_md5"
+    t.datetime "embedding_generated_at"
+    t.index ["embedding"], name: "index_documents_on_embedding", opclass: :vector_cosine_ops, using: :hnsw
+    t.index ["type"], name: "index_documents_on_type"
   end
 
   create_table "messages", force: :cascade do |t|

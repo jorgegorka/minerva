@@ -21,7 +21,9 @@ gem "jbuilder"
 gem "marksmith"
 gem "mcp"
 gem "mission_control-jobs"
+gem "neighbor"
 gem "pg"
+gem "ruby_llm"
 gem "ruby-readability", require: false
 gem "stimulus-rails"
 
