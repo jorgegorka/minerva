@@ -23,6 +23,7 @@ gem "mcp"
 gem "mission_control-jobs"
 gem "neighbor"
 gem "pg"
+gem "pgvector"
 gem "ruby_llm"
 gem "ruby-readability", require: false
 gem "stimulus-rails"

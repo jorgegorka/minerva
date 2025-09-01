@@ -49,4 +49,24 @@ class DocumentsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to documents_url
   end
+
+  test "should destroy document via turbo stream" do
+    assert_difference("Document.count", -1) do
+      delete document_url(@document), headers: { "Accept" => "text/vnd.turbo-stream.html" }
+    end
+    assert_response :success
+    assert_equal "text/vnd.turbo-stream.html; charset=utf-8", response.content_type
+    assert_includes response.body, "<turbo-stream action=\"remove\" target=\"document_#{@document.id}\">"
+  end
+
+  test "should redirect when deleting from show page via turbo stream" do
+    assert_difference("Document.count", -1) do
+      delete document_url(@document), 
+        headers: { 
+          "Accept" => "text/vnd.turbo-stream.html",
+          "Referer" => document_url(@document)
+        }
+    end
+    assert_redirected_to documents_url
+  end
 end

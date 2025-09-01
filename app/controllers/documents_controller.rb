@@ -35,7 +35,19 @@ class DocumentsController < ApplicationController
 
   def destroy
     @document.destroy
-    redirect_to documents_url, notice: "Document was successfully deleted."
+
+    respond_to do |format|
+      format.turbo_stream do
+        # If the request comes from the show page, redirect to index
+        if request.referer&.include?(document_path(@document))
+          redirect_to documents_url, notice: "Document was successfully deleted."
+        else
+          # Otherwise render the turbo stream (for index page deletion)
+          render :destroy
+        end
+      end
+      format.html { redirect_to documents_url, notice: "Document was successfully deleted." }
+    end
   end
 
   private
@@ -45,6 +57,6 @@ class DocumentsController < ApplicationController
   end
 
   def document_params
-    params.require(:document).permit(:title, :content)
+    params.require(:document).permit(:title, :content, :file)
   end
 end

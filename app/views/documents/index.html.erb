@@ -11,15 +11,22 @@
 
   <% if @documents.any? %>
     <% @documents.each do |document| %>
-      <div class="card">
-        <h3><%= document.title %></h3>
+      <div id="document_<%= document.id %>" class="card">
+        <h3>
+          <%= document.title %>
+          <% if document.file.attached? %>
+            <span style="margin-left: 8px; font-size: 0.8em; color: #6c757d;">📎</span>
+          <% end %>
+        </h3>
         <p><%= truncate(document.content, length: 200) %></p>
         <p class="text-muted"><small>Created: <%= document.created_at.strftime("%B %d, %Y at %I:%M %p") %></small></p>
         <div class="card-actions">
           <%= link_to "View", document_path(document), class: "btn btn-secondary btn-sm" %>
           <%= link_to "Edit", edit_document_path(document), class: "btn btn-secondary btn-sm" %>
-          <%= link_to "Delete", document_path(document), method: :delete,
-                      confirm: "Are you sure?", class: "btn btn-danger btn-sm" %>
+          <%= link_to "Delete", document_path(document), 
+                      data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this document?" },
+                      class: "btn btn-danger btn-sm",
+                      aria_label: "Delete #{document.title}" %>
         </div>
       </div>
     <% end %>

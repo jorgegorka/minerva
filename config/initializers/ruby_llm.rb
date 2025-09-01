@@ -4,4 +4,3 @@ RubyLLM.configure do |config|
 
   config.default_model = "openai/gpt-5-nano"
 end
-
