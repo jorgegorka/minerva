@@ -3,7 +3,7 @@ class McpController < ApplicationController
     server = MCP::Server.new(
       name: "rails_mcp",
       version: "1.0.0",
-      tools: [],
+      tools: Tools::Finder.call,
       prompts: [],
       resources: Resources::Finder.call,
       server_context: { user_id: current_user.id }
