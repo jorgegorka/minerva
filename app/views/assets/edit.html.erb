@@ -1,0 +1,10 @@
+<div class="container">
+  <h1>Edit Asset</h1>
+  
+  <div class="nav-links">
+    <%= link_to "← Back to Asset", asset_path(@asset) %> |
+    <%= link_to "All Assets", assets_path %>
+  </div>
+
+  <%= render 'form', asset: @asset %>
+</div>

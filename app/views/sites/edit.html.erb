@@ -1,0 +1,10 @@
+<div class="container">
+  <h1>Edit Site</h1>
+  
+  <div class="nav-links">
+    <%= link_to "← Back to Site", site_path(@site) %> |
+    <%= link_to "All Sites", sites_path %>
+  </div>
+
+  <%= render 'form', site: @site %>
+</div>

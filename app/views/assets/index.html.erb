@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="title-backlink">
+    <h1>Assets</h1>
+    <%= link_to "← Back Home", root_path %>
+  </div>
+  
+  <div class="nav-links">
+    <%= link_to "New Asset", new_asset_path, class: "btn btn-primary btn-sm" %>
+  </div>
+
+  <% if notice %>
+    <div class="alert alert-success"><%= notice %></div>
+  <% end %>
+
+  <% if @assets.any? %>
+    <% @assets.each do |asset| %>
+      <div id="asset_<%= asset.id %>" class="card">
+        <h3>
+          <%= asset.title %>
+          <% if asset.file.attached? %>
+            <span style="margin-left: 8px; font-size: 0.8em; color: #6c757d;">📎</span>
+          <% end %>
+        </h3>
+        <p><%= "Category: #{asset.category.title}" if asset.category %></p>
+        
+        <p class="text-muted"><small>Created: <%= asset.created_at.strftime("%B %d, %Y at %I:%M %p") %></small></p>
+        <div class="card-actions">
+          <%= link_to "View", asset_path(asset), class: "btn btn-secondary btn-sm" %>
+          <%= link_to "Edit", edit_asset_path(asset), class: "btn btn-secondary btn-sm" %>
+          <%= link_to "Delete", asset_path(asset), 
+                      data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this asset?" },
+                      class: "btn btn-danger btn-sm",
+                      aria_label: "Delete #{asset.title}" %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="card">
+      <p>No assets found. <%= link_to "Create your first asset", new_asset_path %>!</p>
+    </div>
+  <% end %>
+</div>

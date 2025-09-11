@@ -1,0 +1,41 @@
+<%= form_with model: asset, local: true, multipart: true do |form| %>
+  <% if asset.errors.any? %>
+    <div class="error-messages">
+      <h4><%= pluralize(asset.errors.count, "error") %> prohibited this asset from being saved:</h4>
+      <ul>
+        <% asset.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control", placeholder: "Enter asset title" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :category_id, "Category" %>
+    <%= form.select :category_id, 
+        options_for_select([["No category", ""]] + @categories.map { |id, title| [title, id] }, asset.category_id),
+        { prompt: "Select a category" },
+        { class: "form-control" } %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :file, "Attachment" %>
+    <%= form.file_field :file, class: "form-control", direct_upload: true %>
+    <% if asset.file.attached? %>
+      <p class="mt-2 text-muted">
+        Current file: 
+        <%= link_to asset.file.filename.to_s, rails_blob_path(asset.file, disposition: "attachment") %>
+        (<%= number_to_human_size(asset.file.byte_size) %>)
+      </p>
+    <% end %>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

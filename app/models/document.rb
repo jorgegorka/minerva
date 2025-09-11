@@ -1,6 +1,8 @@
 class Document < ApplicationRecord
   has_neighbors :embedding
 
+  belongs_to :category, optional: true
+
   validates :title, presence: true
 
   has_one_attached :file

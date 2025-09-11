@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="title-backlink">
+    <h1>Texts</h1>
+    <%= link_to "← Back Home", root_path %>
+  </div>
+
+  <div class="nav-links">
+    <%= link_to "New Text", new_text_path, class: "btn btn-primary btn-sm" %>
+  </div>
+
+  <% if notice %>
+    <div class="alert alert-success"><%= notice %></div>
+  <% end %>
+
+  <% if @texts.any? %>
+    <% @texts.each do |text| %>
+      <div id="text_<%= text.id %>" class="card">
+        <h3>
+          <%= text.title %>
+        </h3>
+        <p><%= "Category: #{text.category.title}" if text.category %></p>
+        <p><%= truncate(text.content, length: 200) %></p>
+        <p class="text-muted"><small>Created: <%= text.created_at.strftime("%B %d, %Y at %I:%M %p") %></small></p>
+        <div class="card-actions">
+          <%= link_to "View", text_path(text), class: "btn btn-secondary btn-sm" %>
+          <%= link_to "Edit", edit_text_path(text), class: "btn btn-secondary btn-sm" %>
+          <%= link_to "Delete", text_path(text), 
+                      data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this text?" },
+                      class: "btn btn-danger btn-sm",
+                      aria_label: "Delete #{text.title}" %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="card">
+      <p>No texts found. <%= link_to "Create your first text", new_text_path %>!</p>
+    </div>
+  <% end %>
+</div>

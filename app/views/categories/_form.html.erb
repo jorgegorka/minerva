@@ -1,0 +1,21 @@
+<%= form_with model: category, local: true, multipart: true do |form| %>
+  <% if category.errors.any? %>
+    <div class="error-messages">
+      <h4><%= pluralize(category.errors.count, "error") %> prohibited this category from being saved:</h4>
+      <ul>
+        <% category.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control", placeholder: "Enter category title" %>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_28_173650) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_11_152432) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "vector"
@@ -43,6 +43,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_173650) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "chats", force: :cascade do |t|
     t.string "model_id"
     t.datetime "created_at", null: false
@@ -60,6 +66,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_173650) do
     t.string "embedding_md5"
     t.datetime "embedding_generated_at"
     t.integer "embedding_dimensions"
+    t.bigint "category_id"
+    t.integer "max_depth"
+    t.index ["category_id"], name: "index_documents_on_category_id"
     t.index ["embedding"], name: "index_documents_on_embedding", opclass: :vector_cosine_ops, using: :hnsw
     t.index ["type"], name: "index_documents_on_type"
   end

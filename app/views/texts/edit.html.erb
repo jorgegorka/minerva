@@ -1,0 +1,10 @@
+<div class="container">
+  <h1>Edit Text</h1>
+  
+  <div class="nav-links">
+    <%= link_to "← Back to Text", text_path(@text) %> |
+    <%= link_to "All Texts", texts_path %>
+  </div>
+
+  <%= render 'form', text: @text %>
+</div>

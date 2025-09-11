@@ -277,7 +277,7 @@ GEM
       date
       stringio
     public_suffix (6.0.2)
-    puma (7.0.1)
+    puma (6.6.1)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
@@ -428,9 +428,9 @@ GEM
       railties (>= 7.1.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    unicode-display_width (3.1.5)
-      unicode-emoji (~> 4.0, >= 4.0.4)
-    unicode-emoji (4.0.4)
+    unicode-display_width (3.2.0)
+      unicode-emoji (~> 4.1)
+    unicode-emoji (4.1.0)
     uri (1.0.3)
     useragent (0.16.11)
     web-console (4.2.1)
@@ -477,7 +477,7 @@ DEPENDENCIES
   pg
   pgvector
   propshaft
-  puma (>= 5.0)
+  puma (>= 6.0)
   rails (~> 8.0.2, >= 8.0.2.1)
   rubocop-rails-omakase
   ruby-readability
