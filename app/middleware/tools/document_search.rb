@@ -10,7 +10,7 @@ module Tools
             description: "User query"
           }
         },
-        required: [ "goal_id" ]
+        required: [ "query" ]
       }
     )
 

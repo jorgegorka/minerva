@@ -1,3 +1,5 @@
+require "open3"
+
 class ProcessPdfAttachmentJob < ApplicationJob
   queue_as :default
 
@@ -29,16 +31,14 @@ class ProcessPdfAttachmentJob < ApplicationJob
 
       Rails.logger.info "ProcessPdfAttachmentJob: Running docling command on #{pdf_path}"
 
-      # Capture stderr for better error reporting
-      stderr_file = File.join(temp_dir, "docling_stderr.log")
-      command = "docling #{pdf_path.shellescape} --output #{output_dir.shellescape} --to md 2>#{stderr_file.shellescape}"
+      # Use Open3 to safely execute command without shell interpolation
+      stdout, stderr, status = Open3.capture3(
+        "docling", pdf_path, "--output", output_dir, "--to", "md"
+      )
 
-      result = system(command)
-
-      unless result
-        error_output = File.exist?(stderr_file) ? File.read(stderr_file) : "No error details available"
+      unless status.success?
         Rails.logger.error "ProcessPdfAttachmentJob: docling command failed for document #{document_id}"
-        Rails.logger.error "ProcessPdfAttachmentJob: docling error output: #{error_output}"
+        Rails.logger.error "ProcessPdfAttachmentJob: docling error output: #{stderr}"
         return
       end
 

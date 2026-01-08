@@ -16,7 +16,7 @@ class Document < ApplicationRecord
 
   scope :search, ->(query) {
     where("to_tsvector(content) @@ plainto_tsquery(?)", query)
-      .order(Arel.sql("ts_rank_cd(to_tsvector(content), plainto_tsquery(?)) DESC", query))
+      .order(Arel.sql(sanitize_sql_array([ "ts_rank_cd(to_tsvector(content), plainto_tsquery(?)) DESC", query ])))
   }
 
   def current_md5
