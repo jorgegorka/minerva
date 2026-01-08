@@ -1,37 +1,106 @@
 # MINERVA
 
-Infuse knowledge and wisdom into your AI models with MINERVA, elevate your AI applications with enhanced reasoning and dynamic tool usage.
-
-**Early development stage** not suitable for production use, yet.
-
-## Description
-
-Minerva is an MCP server that you can connect to your AI Agent. 
-
-It makes very easy to create a knowledge base with all your required business logic and inject it into an agent.
+A Rails 8 MCP (Model Context Protocol) server that provides a knowledge base for AI agents. Elevate your AI applications with enhanced reasoning and dynamic tool usage through RAG-powered document retrieval.
 
 ## Features
 
-* Add markdown documents.
-* Scrape websites to include that content into your knowledge base.
-* Parse PDFs.
-* RAG (Retrieval-Augmented Generation) 
+- **Document Management** - Create and organize markdown documents via web UI
+- **PDF Processing** - Upload PDFs with automatic text extraction
+- **Website Scraping** - Import content from web pages and crawl entire sites
+- **RAG Search** - Vector similarity search powered by pgvector embeddings
+- **MCP Interface** - Connect directly to Claude, Cursor, or any MCP-compatible AI agent
 
-## Use cases
+## Requirements
 
-Minerva can be used in any case where you can benefit from injecting extra logic into AI Agents.  
+- Ruby 3.4.6
+- PostgreSQL 15+ with [pgvector](https://github.com/pgvector/pgvector) extension
+- [Ollama](https://ollama.ai) (for local embeddings)
 
-### AI coding 
+## Installation
 
-With Minerva is very easy to create a central resource with instructions about how to code. 
+```bash
+# Clone the repository
+git clone https://github.com/your-org/minerva.git
+cd minerva
 
-Roles definition: Backend development, frontend development, testing, feature planning, task management...
+# Install dependencies
+bundle install
 
-### Customer support
+# Set up environment variables (optional, defaults work for local development)
+export POSTGRES_USER=your_user
+export POSTGRES_PASSWORD=your_password
+export POSTGRES_HOST=127.0.0.1
 
-Minerva will enhance any model with your business logic and documentation so the agent can return accurate responses about your company/product.
+# Set up database with pgvector
+bin/rails db:prepare
+
+# Pull the embedding model
+ollama pull nomic-embed-text:v1.5
+
+# Start the server
+bin/dev
+```
+
+The web interface will be available at `http://localhost:3000`.
+
+## Connecting to AI Agents
+
+Minerva exposes an MCP endpoint at `POST /mcp`. Configure your AI agent to connect:
+
+### Claude Code
+
+Add to your `~/.claude/claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "minerva": {
+      "url": "http://localhost:3000/mcp"
+    }
+  }
+}
+```
+
+### Cursor
+
+Add to your MCP settings:
+
+```json
+{
+  "minerva": {
+    "url": "http://localhost:3000/mcp"
+  }
+}
+```
+
+## Usage
+
+1. **Add Documents** - Use the web UI to create markdown documents or upload PDFs
+2. **Scrape Websites** - Add site URLs to automatically import their content
+3. **Organize** - Use categories to organize your knowledge base
+4. **Query** - Your AI agent can now search and retrieve relevant documents via the `DocumentSearch` tool
+
+## Development
+
+```bash
+bin/dev                          # Start development server
+bin/rails test                   # Run tests
+bin/rubocop                      # Lint Ruby code
+bin/brakeman --no-pager          # Security scan
+```
+
+## Architecture
+
+- **PostgreSQL** with pgvector for vector storage (768-dim embeddings, HNSW index)
+- **Solid Queue/Cache/Cable** for background jobs and caching (no Redis required)
+- **Propshaft + importmap-rails** for assets (no Node.js required)
+- **Kamal** for deployment
 
 ## Contributors
 
-[Mario Alvarez](https://github.com/marioalna)
-[Jorge Alvarez](https://github.com/jorgegorka)
+- [Mario Alvarez](https://github.com/marioalna)
+- [Jorge Alvarez](https://github.com/jorgegorka)
+
+## License
+
+MIT
