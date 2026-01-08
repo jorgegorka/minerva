@@ -480,7 +480,7 @@ DEPENDENCIES
   pg
   pgvector
   propshaft
-  puma (>= 5.0)
+  puma (>= 6.0)
   rails (~> 8.1.0)
   rubocop-rails-omakase
   ruby-readability

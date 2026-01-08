@@ -1,8 +1,10 @@
-<div class="container">
+<div class="main-container">
   <h1>Edit Category</h1>
-  
-  <div class="nav-links">
-    <%= link_to "← Back to Categories", categories_path %> |
+
+  <div class="txt-center margin-block">
+    <%= link_to categories_path do %>
+      <%= icon_tag "arrow-left" %> Back to Categories
+    <% end %>
   </div>
 
   <%= render 'form', category: @category %>

@@ -8,7 +8,7 @@ module Tools
 
     def call
       [
-        Tools::DocumentSearch.new
+        Tools::DocumentSearch
       ]
     end
   end

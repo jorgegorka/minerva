@@ -44,8 +44,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_08_093528) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string "title"
     t.datetime "created_at", null: false
+    t.string "title"
     t.datetime "updated_at", null: false
   end
 
@@ -56,18 +56,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_08_093528) do
   end
 
   create_table "documents", force: :cascade do |t|
+    t.bigint "category_id"
     t.text "content"
     t.datetime "created_at", null: false
     t.vector "embedding", limit: 768
     t.integer "embedding_dimensions"
     t.datetime "embedding_generated_at"
     t.string "embedding_md5"
+    t.integer "max_depth"
     t.string "title"
     t.string "type"
     t.datetime "updated_at", null: false
     t.string "url"
-    t.bigint "category_id"
-    t.integer "max_depth"
     t.index ["category_id"], name: "index_documents_on_category_id"
     t.index ["embedding"], name: "index_documents_on_embedding", opclass: :vector_cosine_ops, using: :hnsw
     t.index ["type"], name: "index_documents_on_type"
