@@ -1,5 +1,5 @@
 class Document < ApplicationRecord
-  has_neighbors :embedding
+  include Embeddable
 
   belongs_to :category, optional: true
 
@@ -12,26 +12,12 @@ class Document < ApplicationRecord
 
   after_commit :enqueue_pdf_processing, on: [ :create, :update ], if: :file_attachment_changed?
 
-  after_commit :enqueue_embedding_job, on: [ :create, :update ], if: :needs_embedding?
-
   scope :search, ->(query) {
     where("to_tsvector(content) @@ plainto_tsquery(?)", query)
       .order(Arel.sql(sanitize_sql_array([ "ts_rank_cd(to_tsvector(content), plainto_tsquery(?)) DESC", query ])))
   }
 
-  def current_md5
-    Digest::MD5.hexdigest([ title, content ].join("\n\n"))
-  end
-
-  def needs_embedding?
-    content.present? && (embedding.blank? || embedding_md5 != current_md5)
-  end
-
   private
-
-    def enqueue_embedding_job
-      CreateEmbeddingJob.perform_later(id)
-    end
 
     def enqueue_pdf_processing
       return unless file.attached? && file.content_type == "application/pdf"
