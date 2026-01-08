@@ -58,13 +58,10 @@ jobs:
 
     services:
       postgres:
-        image: postgres:latest
+        image: pgvector/pgvector:pg17
         env:
-          RAILS_ENV: test
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_TEST_KEY }}
-          POSTGRES_USER: jorge
-          POSTGRES_PASSWORD: root
-          POSTGRES_HOST: localhost
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -75,8 +72,6 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Install unaccent for postgres
-        run: psql -h localhost -d minerva_test -U ${{ secrets.POSTGRES_USER }} -c 'create extension vector;'
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -87,8 +82,8 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
-          POSTGRES_USER: jorge
-          POSTGRES_PASSWORD: root
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
           POSTGRES_HOST: localhost
         run: bin/rails db:test:prepare test test:system
 
