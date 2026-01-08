@@ -75,6 +75,8 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Install unaccent for postgres
+        run: psql -h localhost -d minerva_test -U ${{ secrets.POSTGRES_USER }} -c 'create extension vector;'
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
