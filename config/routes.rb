@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount MissionControl::Jobs::Engine, at: "/jobs"
 
-  resources :assets, path: 'asset-management'
+  resources :assets, path: "asset-management"
   resources :categories, except: [ :show ]
   resources :sites
   resources :texts
