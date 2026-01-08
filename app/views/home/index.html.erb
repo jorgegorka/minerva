@@ -1,24 +1,36 @@
 <div class="main-container">
-  <h1>Rails MCP Application</h1>
+  <div class="centered-content">
+    <h1>Welcome to MINERVA</h1>
+    <p class="txt-medium txt-subtle">
+      Your knowledge base for AI agents. Store, organize, and query documents through the Model Context Protocol.
+    </p>
+  </div>
 
-  <div class="card">
-    <h2>Welcome!</h2>
-    <p>This is a Rails application with Model Context Protocol (MCP) integration.</p>
+  <hr class="section-divider">
 
-    <div class="txt-center margin-block-start">
-      <%= link_to "View Categories", categories_path, class: "btn btn--reversed" %>
+  <div class="two-column">
+    <div class="card card--interactive">
+      <h3>Categories</h3>
+      <p class="txt-subtle">Organize your documents into logical groups for easier navigation and retrieval.</p>
+      <%= link_to "Browse Categories", categories_path, class: "btn btn--link" %>
     </div>
 
-    <div class="txt-center margin-block-start">
-      <%= link_to "View Assets", assets_path, class: "btn btn--reversed" %>
+    <div class="card card--interactive">
+      <h3>Assets</h3>
+      <p class="txt-subtle">Upload and manage PDF documents with automatic content extraction and embeddings.</p>
+      <%= link_to "View Assets", assets_path, class: "btn btn--link" %>
     </div>
 
-    <div class="txt-center margin-block-start">
-      <%= link_to "View Texts", texts_path, class: "btn btn--reversed" %>
+    <div class="card card--interactive">
+      <h3>Texts</h3>
+      <p class="txt-subtle">Create and edit text-based knowledge articles with full-text search support.</p>
+      <%= link_to "Explore Texts", texts_path, class: "btn btn--link" %>
     </div>
 
-    <div class="txt-center margin-block-start">
-      <%= link_to "View Sites", sites_path, class: "btn btn--reversed" %>
+    <div class="card card--interactive">
+      <h3>Sites</h3>
+      <p class="txt-subtle">Crawl and index web pages to build a searchable archive of online content.</p>
+      <%= link_to "Manage Sites", sites_path, class: "btn btn--link" %>
     </div>
   </div>
 </div>

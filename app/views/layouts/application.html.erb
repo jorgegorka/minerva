@@ -29,6 +29,9 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= render "layouts/navigation" %>
+    <main>
+      <%= yield %>
+    </main>
   </body>
 </html>
