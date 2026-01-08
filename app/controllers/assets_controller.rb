@@ -3,7 +3,7 @@ class AssetsController < ApplicationController
   before_action :set_categories, only: %i[new create edit update]
 
   def index
-    @assets = Asset.all.order(created_at: :desc)
+    @assets = Asset.includes(:category).order(created_at: :desc)
   end
 
   def show

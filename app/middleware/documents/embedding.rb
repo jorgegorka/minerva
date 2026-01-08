@@ -28,7 +28,7 @@ module Documents
         result = RubyLLM.embed(text, model: "nomic-embed-text:v1.5", provider: DEFAULT_PROVIDER)
         vectors = result.vectors
         dims    = vectors.size
-      Rails.logger.info("Generated embedding with #{result.input_tokens} dimensions")
+        Rails.logger.info("Generated embedding with #{dims} dimensions")
 
         [ vectors, dims ]
       end

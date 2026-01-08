@@ -3,7 +3,7 @@ class TextsController < ApplicationController
   before_action :set_categories, only: %i[new create edit update]
 
   def index
-    @texts = Text.all.order(created_at: :desc)
+    @texts = Text.includes(:category).order(created_at: :desc)
   end
 
   def show
