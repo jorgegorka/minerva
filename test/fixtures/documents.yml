@@ -1,5 +1,6 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+# Base document fixtures for existing tests
 one:
   title: MyString
   content: MyText
@@ -7,3 +8,49 @@ one:
 two:
   title: MyString
   content: MyText
+
+# Asset fixtures
+asset_one:
+  type: Asset
+  title: Sample Asset
+  content: This is sample asset content
+  category: development
+
+asset_two:
+  type: Asset
+  title: Another Asset
+  content: Another asset content
+  category: design
+
+# Text fixtures
+text_one:
+  type: Text
+  title: Sample Text
+  content: This is sample text content
+  category: development
+
+text_two:
+  type: Text
+  title: Another Text
+  content: Another text content
+  category: documentation
+
+# Site fixtures
+site_one:
+  type: Site
+  title: Example Site
+  url: https://example.com
+  max_depth: 2
+  category: development
+
+site_two:
+  type: Site
+  title: Another Site
+  url: https://another-example.com
+  max_depth: 3
+  category: documentation
+
+# Plain document for general tests
+plain_document:
+  title: Plain Document
+  content: Plain document content
