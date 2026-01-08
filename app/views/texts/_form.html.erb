@@ -1,0 +1,34 @@
+<%= form_with model: text, local: true, class: "flex flex-column gap" do |form| %>
+  <% if text.errors.any? %>
+    <div class="alert alert--negative">
+      <p class="margin-block-none font-weight-semibold"><%= pluralize(text.errors.count, "error") %> prohibited this text from being saved:</p>
+      <ul class="margin-block-half">
+        <% text.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="flex flex-column gap-half">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "input", placeholder: "Enter text title" %>
+  </div>
+
+  <div class="flex flex-column gap-half">
+    <%= form.label :category_id, "Category" %>
+    <%= form.select :category_id,
+        options_for_select([["No category", ""]] + @categories.map { |id, title| [title, id] }, text.category_id),
+        {},
+        { class: "input" } %>
+  </div>
+
+  <div class="flex flex-column gap-half">
+    <%= form.label :content %>
+    <%= form.marksmith :content, class: "input", rows: 8, placeholder: "Enter text content here..." %>
+  </div>
+
+  <div class="margin-block-start">
+    <%= form.submit class: "btn btn--reversed full-width" %>
+  </div>
+<% end %>

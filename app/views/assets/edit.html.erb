@@ -1,0 +1,12 @@
+<div class="main-container">
+  <h1>Edit Asset</h1>
+
+  <div class="txt-center margin-block">
+    <%= link_to asset_path(@asset) do %>
+      <%= icon_tag "arrow-left" %> Back to Asset
+    <% end %> |
+    <%= link_to "All Assets", assets_path %>
+  </div>
+
+  <%= render 'form', asset: @asset %>
+</div>

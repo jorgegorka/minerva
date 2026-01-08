@@ -1,0 +1,12 @@
+<div class="main-container">
+  <h1>Edit Text</h1>
+
+  <div class="txt-center margin-block">
+    <%= link_to text_path(@text) do %>
+      <%= icon_tag "arrow-left" %> Back to Text
+    <% end %> |
+    <%= link_to "All Texts", texts_path %>
+  </div>
+
+  <%= render 'form', text: @text %>
+</div>

@@ -1,0 +1,26 @@
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="site-nav__inner">
+    <%= link_to root_path, class: "site-nav__brand" do %>
+      <span class="site-nav__brand-icon" aria-hidden="true">&#x1F989;</span>MINERVA
+    <% end %>
+
+    <div class="site-nav__spacer"></div>
+
+    <ul class="site-nav__menu">
+      <li class="site-nav__item">
+        <%= link_to "Categories", categories_path, class: nav_link_class("categories") %>
+      </li>
+      <li class="site-nav__item">
+        <%= link_to "Assets", assets_path, class: nav_link_class("assets") %>
+      </li>
+      <li class="site-nav__item">
+        <%= link_to "Texts", texts_path, class: nav_link_class("texts") %>
+      </li>
+      <li class="site-nav__item">
+        <%= link_to "Sites", sites_path, class: nav_link_class("sites") %>
+      </li>
+    </ul>
+
+    <div class="site-nav__spacer"></div>
+  </div>
+</nav>

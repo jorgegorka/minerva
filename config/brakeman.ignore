@@ -1,0 +1,141 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 84,
+      "fingerprint": "203f0341f37e870da108f523f9eda35090b5e42c8bdda8aebbf8592bbbfee956",
+      "check_name": "RenderInline",
+      "message": "Unescaped model attribute rendered inline",
+      "file": "app/views/texts/new.html.erb",
+      "line": 10,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross-site_scripting/",
+      "code": "render(text => Text.new(text_params), {})",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "TextsController",
+          "method": "create",
+          "line": 22,
+          "file": "app/controllers/texts_controller.rb",
+          "rendered": {
+            "name": "texts/new",
+            "file": "app/views/texts/new.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "texts/new"
+      },
+      "user_input": "Text.new(text_params)",
+      "confidence": "Medium",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "9cb4c9a9fa85e28b918e61763f6b4514999212940f62f2f6bb430a41e03eed38",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/texts/show.html.erb",
+      "line": 24,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "marksmithed(sanitize(Text.find(params[:id]).content, :tags => ([\"table\", \"th\", \"tr\", \"td\", \"span\"] + ActionView::Helpers::SanitizeHelper.sanitizer_vendor.safe_list_sanitizer.allowed_tags.to_a)))",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "TextsController",
+          "method": "show",
+          "line": 10,
+          "file": "app/controllers/texts_controller.rb",
+          "rendered": {
+            "name": "texts/show",
+            "file": "app/views/texts/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "texts/show"
+      },
+      "user_input": "Text.find(params[:id]).content",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "cd261e7215b61c12ec45694613ae9d434399c6e4e3ae541df049d4f9e45e0d7f",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/sites/show.html.erb",
+      "line": 22,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(Site.find(params[:id]).url, Site.find(params[:id]).url, :target => \"_blank\", :rel => \"noopener\")",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "SitesController",
+          "method": "show",
+          "line": 10,
+          "file": "app/controllers/sites_controller.rb",
+          "rendered": {
+            "name": "sites/show",
+            "file": "app/views/sites/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "sites/show"
+      },
+      "user_input": "Site.find(params[:id]).url",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 84,
+      "fingerprint": "d7b0619c7abef28435d16cdf7dd447291cc14109918985c53ef9a115d5ca10d5",
+      "check_name": "RenderInline",
+      "message": "Unescaped model attribute rendered inline",
+      "file": "app/views/texts/edit.html.erb",
+      "line": 11,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross-site_scripting/",
+      "code": "render(text => Text.find(params[:id]), {})",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "TextsController",
+          "method": "edit",
+          "line": 27,
+          "file": "app/controllers/texts_controller.rb",
+          "rendered": {
+            "name": "texts/edit",
+            "file": "app/views/texts/edit.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "texts/edit"
+      },
+      "user_input": "Text.find(params[:id])",
+      "confidence": "Medium",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    }
+  ],
+  "brakeman_version": "7.1.2"
+}

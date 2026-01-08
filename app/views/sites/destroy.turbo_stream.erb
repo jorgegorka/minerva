@@ -1,0 +1,8 @@
+<turbo-stream action="remove" target="site_<%= @site.id %>"></turbo-stream>
+<turbo-stream action="prepend" target="container">
+  <template>
+    <div class="alert alert-success" style="margin-top: 1rem;">
+      Site "<%= @site.title %>" was successfully deleted.
+    </div>
+  </template>
+</turbo-stream>

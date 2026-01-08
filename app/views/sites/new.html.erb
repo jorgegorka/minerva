@@ -1,0 +1,11 @@
+<div class="main-container">
+  <h1>New Site</h1>
+
+  <div class="txt-center margin-block">
+    <%= link_to sites_path do %>
+      <%= icon_tag "arrow-left" %> Back to Sites
+    <% end %>
+  </div>
+
+  <%= render 'form', site: @site %>
+</div>

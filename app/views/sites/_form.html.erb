@@ -1,0 +1,39 @@
+<%= form_with model: site, local: true, class: "flex flex-column gap" do |form| %>
+  <% if site.errors.any? %>
+    <div class="alert alert--negative">
+      <p class="margin-block-none font-weight-semibold"><%= pluralize(site.errors.count, "error") %> prohibited this site from being saved:</p>
+      <ul class="margin-block-half">
+        <% site.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="flex flex-column gap-half">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "input", placeholder: "Enter site title" %>
+  </div>
+
+  <div class="flex flex-column gap-half">
+    <%= form.label :category_id, "Category" %>
+    <%= form.select :category_id,
+        options_for_select([["No category", ""]] + @categories.map { |id, title| [title, id] }, site.category_id),
+        {},
+        { class: "input" } %>
+  </div>
+
+  <div class="flex flex-column gap-half">
+    <%= form.label :url %>
+    <%= form.text_field :url, class: "input", placeholder: "Enter site URL" %>
+  </div>
+
+  <div class="flex flex-column gap-half">
+    <%= form.label :max_depth %>
+    <%= form.number_field :max_depth, class: "input", placeholder: "Enter max crawl depth" %>
+  </div>
+
+  <div class="margin-block-start">
+    <%= form.submit class: "btn btn--reversed full-width" %>
+  </div>
+<% end %>

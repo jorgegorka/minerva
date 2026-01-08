@@ -1,0 +1,36 @@
+<div class="main-container">
+  <h1>Texts</h1>
+
+  <div class="txt-center margin-block">
+    <%= link_to "New Text", new_text_path, class: "btn btn--reversed btn--small" %>
+  </div>
+
+  <% if notice %>
+    <div class="alert alert--positive"><%= notice %></div>
+  <% end %>
+
+  <% if @texts.any? %>
+    <% @texts.each do |text| %>
+      <div id="text_<%= text.id %>" class="card">
+        <h3><%= text.title %></h3>
+        <% if text.category %>
+          <p class="txt-subtle">Category: <%= text.category.title %></p>
+        <% end %>
+        <p><%= truncate(text.content, length: 200) %></p>
+        <p class="txt-subtle txt-small">Created: <%= text.created_at.strftime("%B %d, %Y at %I:%M %p") %></p>
+        <div class="card__actions">
+          <%= link_to "View", text_path(text), class: "btn btn--small" %>
+          <%= link_to "Edit", edit_text_path(text), class: "btn btn--small" %>
+          <%= link_to "Delete", text_path(text),
+                      data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this text?" },
+                      class: "btn btn--negative btn--small",
+                      aria_label: "Delete #{text.title}" %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="card">
+      <p>No texts found. <%= link_to "Create your first text", new_text_path %>!</p>
+    </div>
+  <% end %>
+</div>

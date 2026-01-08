@@ -22,7 +22,7 @@ module WebPages
 
       cleaned_content = ActionController::Base.helpers.strip_tags(content_html)
 
-      Document.create!(
+      WebPage.create!(
         url:,
         title:,
         content: cleaned_content

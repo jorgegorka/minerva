@@ -7,7 +7,7 @@ module Resources
     end
 
     def call
-      Document.all.map do |doc|
+      Asset.all.map do |doc|
         create_resource(doc)
       end
     end

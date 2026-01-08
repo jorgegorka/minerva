@@ -1,0 +1,36 @@
+<div class="main-container">
+  <nav class="txt-center margin-block">
+    <%= link_to texts_path do %>
+      <%= icon_tag "arrow-left" %> Back to Texts
+    <% end %> |
+    <%= link_to "Edit", edit_text_path(@text) %> |
+    <%= link_to "Delete", text_path(@text),
+                data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this text?" },
+                class: "txt-negative",
+                aria_label: "Delete #{@text.title}" %>
+  </nav>
+
+  <% if notice %>
+    <div class="alert alert--positive"><%= notice %></div>
+  <% end %>
+
+  <div class="card">
+    <h1><%= @text.title %></h1>
+    <% if @text.category %>
+      <p class="txt-subtle">Category: <%= @text.category.title %></p>
+    <% end %>
+
+    <div class="txt-pre-wrap txt-normal-lines">
+      <%== marksmithed sanitize(@text.content, tags: %w(table th tr td span) + ActionView::Helpers::SanitizeHelper.sanitizer_vendor.safe_list_sanitizer.allowed_tags.to_a) %>
+    </div>
+
+    <hr class="margin-block-double">
+
+    <div class="txt-subtle txt-small">
+      <p class="margin-block-none"><strong>Created:</strong> <%= @text.created_at.strftime("%B %d, %Y at %I:%M %p") %></p>
+      <% if @text.updated_at != @text.created_at %>
+        <p class="margin-block-none"><strong>Updated:</strong> <%= @text.updated_at.strftime("%B %d, %Y at %I:%M %p") %></p>
+      <% end %>
+    </div>
+  </div>
+</div>

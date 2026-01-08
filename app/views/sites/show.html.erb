@@ -1,0 +1,36 @@
+<div class="main-container">
+  <nav class="txt-center margin-block">
+    <%= link_to sites_path do %>
+      <%= icon_tag "arrow-left" %> Back to Sites
+    <% end %> |
+    <%= link_to "Edit", edit_site_path(@site) %> |
+    <%= link_to "Delete", site_path(@site),
+                data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this site?" },
+                class: "txt-negative",
+                aria_label: "Delete #{@site.title}" %>
+  </nav>
+
+  <% if notice %>
+    <div class="alert alert--positive"><%= notice %></div>
+  <% end %>
+
+  <div class="card">
+    <h1><%= @site.title %></h1>
+    <% if @site.category %>
+      <p class="txt-subtle">Category: <%= @site.category.title %></p>
+    <% end %>
+    <p>URL: <%= link_to @site.url, @site.url, target: "_blank", rel: "noopener" %></p>
+    <% if @site.max_depth %>
+      <p>Max Depth: <%= @site.max_depth %></p>
+    <% end %>
+
+    <hr class="margin-block-double">
+
+    <div class="txt-subtle txt-small">
+      <p class="margin-block-none"><strong>Created:</strong> <%= @site.created_at.strftime("%B %d, %Y at %I:%M %p") %></p>
+      <% if @site.updated_at != @site.created_at %>
+        <p class="margin-block-none"><strong>Updated:</strong> <%= @site.updated_at.strftime("%B %d, %Y at %I:%M %p") %></p>
+      <% end %>
+    </div>
+  </div>
+</div>

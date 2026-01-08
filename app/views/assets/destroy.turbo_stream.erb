@@ -1,0 +1,8 @@
+<turbo-stream action="remove" target="asset_<%= @asset.id %>"></turbo-stream>
+<turbo-stream action="prepend" target="container">
+  <template>
+    <div class="alert alert-success" style="margin-top: 1rem;">
+      Asset "<%= @asset.title %>" was successfully deleted.
+    </div>
+  </template>
+</turbo-stream>

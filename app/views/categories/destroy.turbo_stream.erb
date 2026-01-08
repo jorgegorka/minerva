@@ -1,0 +1,8 @@
+<turbo-stream action="remove" target="document_<%= @category.id %>"></turbo-stream>
+<turbo-stream action="prepend" target="container">
+  <template>
+    <div class="alert alert-success" style="margin-top: 1rem;">
+      Category "<%= @category.title %>" was successfully deleted.
+    </div>
+  </template>
+</turbo-stream>

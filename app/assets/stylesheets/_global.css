@@ -1,0 +1,283 @@
+/*
+ * Minerva Global Styles
+ * Soft & Organic Design System
+ * CSS layer definitions, color palette, and design tokens
+ */
+
+/* Layer order declaration - defines cascade precedence */
+@layer reset, base, components, modules, utilities, native, platform;
+
+:root {
+  /* ========================================
+   * OKLCH Color Palette - Soft & Organic
+   * ======================================== */
+
+  /* Neutrals */
+  --lch-black: 0% 0 0;
+  --lch-white: 100% 0 0;
+
+  /* Warm Ink scale (cream/linen tones - replacing cold blue-grays) */
+  --lch-ink-1: 98% 0.01 85;     /* Warm cream canvas */
+  --lch-ink-2: 95% 0.015 85;    /* Soft linen surface */
+  --lch-ink-3: 90% 0.02 85;     /* Subtle borders */
+  --lch-ink-4: 80% 0.02 75;     /* Muted elements */
+  --lch-ink-5: 60% 0.02 75;     /* Secondary text */
+  --lch-ink-6: 45% 0.02 60;     /* Medium emphasis */
+  --lch-ink-7: 30% 0.025 50;    /* Primary text - warm charcoal */
+  --lch-ink-8: 20% 0.02 50;     /* Darkest */
+
+  /* Primary Accent - Sage Green (calming, organic) */
+  --lch-sage-lightest: 95% 0.04 145;
+  --lch-sage-light: 88% 0.06 145;
+  --lch-sage-medium: 65% 0.12 145;
+  --lch-sage-dark: 45% 0.10 145;
+
+  /* Secondary Accent - Dusty Rose (warmth) */
+  --lch-rose-lightest: 94% 0.04 20;
+  --lch-rose-light: 85% 0.08 20;
+  --lch-rose-medium: 65% 0.12 20;
+  --lch-rose-dark: 45% 0.10 20;
+
+  /* Tertiary Accent - Soft Lavender */
+  --lch-lavender-lightest: 95% 0.03 290;
+  --lch-lavender-light: 88% 0.06 290;
+  --lch-lavender-medium: 65% 0.10 290;
+  --lch-lavender-dark: 45% 0.08 290;
+
+  /* Semantic Colors - Softer, Gentler */
+  /* Success - Soft teal-green */
+  --lch-green-light: 92% 0.05 160;
+  --lch-green-medium: 60% 0.12 160;
+  --lch-green-dark: 40% 0.10 160;
+
+  /* Error - Muted coral */
+  --lch-red-light: 92% 0.05 25;
+  --lch-red-medium: 60% 0.13 25;
+  --lch-red-dark: 40% 0.10 25;
+
+  /* Warning - Warm amber */
+  --lch-yellow-light: 94% 0.06 85;
+  --lch-yellow-medium: 80% 0.10 85;
+  --lch-yellow-dark: 45% 0.08 85;
+
+  /* Info - Soft sky blue */
+  --lch-blue-light: 93% 0.04 240;
+  --lch-blue-medium: 60% 0.10 240;
+  --lch-blue-dark: 40% 0.08 240;
+
+  /* ========================================
+   * Semantic Colors
+   * ======================================== */
+  --color-ink: oklch(var(--lch-ink-7));
+  --color-ink-light: oklch(var(--lch-ink-5));
+  --color-ink-lighter: oklch(var(--lch-ink-4));
+  --color-ink-medium: oklch(var(--lch-ink-5));
+  --color-ink-inverted: oklch(var(--lch-white));
+  --color-canvas: oklch(var(--lch-ink-1));
+  --color-canvas-alt: oklch(var(--lch-ink-2));
+
+  --color-link: oklch(var(--lch-sage-medium));
+  --color-positive: oklch(var(--lch-green-medium));
+  --color-negative: oklch(var(--lch-red-medium));
+  --color-highlight: oklch(var(--lch-yellow-medium));
+  --color-selected: oklch(var(--lch-sage-light));
+  --color-selected-dark: oklch(var(--lch-sage-medium));
+
+  /* ========================================
+   * Typography
+   * ======================================== */
+  --font-sans: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+               Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-display: "Nunito", var(--font-sans);
+  --font-serif: ui-serif, serif;
+  --font-mono: ui-monospace, monospace;
+
+  /* Text scale */
+  --text-xx-small: 0.65rem;
+  --text-x-small: 0.75rem;
+  --text-small: 0.875rem;
+  --text-normal: 1rem;
+  --text-medium: 1.125rem;
+  --text-large: 1.5rem;
+  --text-x-large: 2rem;
+  --text-xx-large: 2.5rem;
+
+  /* Line heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+
+  /* Letter spacing */
+  --letter-spacing-tight: -0.01em;
+  --letter-spacing-normal: 0.01em;
+
+  /* ========================================
+   * Spacing - More Generous
+   * ======================================== */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+
+  /* Legacy spacing tokens (mapped to new scale) */
+  --inline-space: 1ch;
+  --inline-space-half: 0.5ch;
+  --inline-space-double: 2ch;
+
+  --block-space: var(--space-md);
+  --block-space-half: var(--space-sm);
+  --block-space-double: var(--space-xl);
+
+  /* Layout */
+  --main-padding: clamp(1.5rem, 5vw, 4rem);
+  --main-width: 860px;
+
+  /* ========================================
+   * Border Radius - More Organic
+   * ======================================== */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+  --radius-full: 9999px;
+
+  /* Legacy tokens (mapped to new scale) */
+  --border-radius: var(--radius-md);
+  --border-radius-large: var(--radius-xl);
+
+  /* ========================================
+   * Borders & Shadows - Warmer, Softer
+   * ======================================== */
+  --border-color: oklch(var(--lch-ink-3));
+
+  /* Warm shadow color */
+  --shadow-color: 50 0.02 60;
+
+  --shadow-xs: 0 1px 2px oklch(var(--shadow-color) / 4%);
+
+  --shadow-sm:
+    0 2px 4px oklch(var(--shadow-color) / 5%),
+    0 1px 2px oklch(var(--shadow-color) / 3%);
+
+  --shadow-md:
+    0 4px 8px oklch(var(--shadow-color) / 6%),
+    0 2px 4px oklch(var(--shadow-color) / 4%);
+
+  --shadow-lg:
+    0 8px 16px oklch(var(--shadow-color) / 7%),
+    0 4px 8px oklch(var(--shadow-color) / 5%),
+    0 2px 4px oklch(var(--shadow-color) / 3%);
+
+  --shadow-xl:
+    0 16px 32px oklch(var(--shadow-color) / 8%),
+    0 8px 16px oklch(var(--shadow-color) / 5%);
+
+  /* Legacy shadow tokens */
+  --shadow: var(--shadow-lg);
+  --shadow-light: var(--shadow-sm);
+
+  /* Focus glow - sage tinted */
+  --glow-sage: 0 0 0 4px oklch(var(--lch-sage-light) / 50%);
+
+  /* ========================================
+   * Focus States
+   * ======================================== */
+  --focus-ring-color: oklch(var(--lch-sage-medium));
+  --focus-ring-size: 2px;
+  --focus-ring-offset: 2px;
+  --focus-ring: var(--focus-ring-size) solid var(--focus-ring-color);
+
+  /* ========================================
+   * Transitions
+   * ======================================== */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-overshoot: cubic-bezier(0.25, 1.75, 0.5, 1);
+  --ease-out-overshoot-subtle: cubic-bezier(0.25, 1.25, 0.5, 1);
+
+  --transition-fast: 150ms var(--ease-out-expo);
+  --transition-normal: 200ms var(--ease-out-expo);
+  --transition-slow: 300ms var(--ease-out-expo);
+
+  /* ========================================
+   * Z-Index Stack
+   * ======================================== */
+  --z-popup: 10;
+  --z-nav: 20;
+  --z-flash: 30;
+  --z-tooltip: 40;
+  --z-bar: 50;
+}
+
+/* ========================================
+ * Dark Mode - Warm Dark Tones
+ * ======================================== */
+
+/* User-selected dark theme */
+html[data-theme="dark"] {
+  /* Warm dark neutrals (not cold blacks) */
+  --lch-ink-1: 18% 0.01 60;     /* Deep warm background */
+  --lch-ink-2: 22% 0.015 60;    /* Card backgrounds */
+  --lch-ink-3: 28% 0.02 60;     /* Borders */
+  --lch-ink-4: 40% 0.02 60;     /* Muted elements */
+  --lch-ink-5: 55% 0.015 60;    /* Secondary text */
+  --lch-ink-6: 70% 0.01 70;     /* Medium text */
+  --lch-ink-7: 88% 0.01 80;     /* Primary text - warm cream */
+  --lch-ink-8: 94% 0.01 80;     /* Brightest text */
+
+  /* Adjusted accent colors for dark mode */
+  --lch-sage-lightest: 25% 0.04 145;
+  --lch-sage-light: 35% 0.06 145;
+
+  --lch-rose-lightest: 25% 0.04 20;
+  --lch-rose-light: 35% 0.06 20;
+
+  --lch-lavender-lightest: 25% 0.03 290;
+  --lch-lavender-light: 35% 0.05 290;
+
+  /* Semantic overrides for dark mode */
+  --color-ink-inverted: oklch(var(--lch-black));
+
+  /* Darker shadow color */
+  --shadow-color: 20 0.02 60;
+}
+
+/* System preference fallback */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) {
+    /* Warm dark neutrals */
+    --lch-ink-1: 18% 0.01 60;
+    --lch-ink-2: 22% 0.015 60;
+    --lch-ink-3: 28% 0.02 60;
+    --lch-ink-4: 40% 0.02 60;
+    --lch-ink-5: 55% 0.015 60;
+    --lch-ink-6: 70% 0.01 70;
+    --lch-ink-7: 88% 0.01 80;
+    --lch-ink-8: 94% 0.01 80;
+
+    /* Adjusted accents */
+    --lch-sage-lightest: 25% 0.04 145;
+    --lch-sage-light: 35% 0.06 145;
+
+    --lch-rose-lightest: 25% 0.04 20;
+    --lch-rose-light: 35% 0.06 20;
+
+    --color-ink-inverted: oklch(var(--lch-black));
+    --shadow-color: 20 0.02 60;
+  }
+}
+
+/* ========================================
+ * Reduced Motion
+ * ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

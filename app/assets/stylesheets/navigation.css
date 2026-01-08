@@ -1,0 +1,261 @@
+/*
+ * Minerva Navigation Styles
+ * Floating Botanical Design
+ * A bold, centered top navigation with frosted glass effect
+ */
+
+@layer components {
+  /* ========================================
+   * Entrance Animation
+   * ======================================== */
+  @keyframes nav-entrance {
+    from {
+      opacity: 0;
+      transform: translateY(-1rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes brand-shimmer {
+    0%, 100% {
+      background-position: -200% center;
+    }
+    50% {
+      background-position: 200% center;
+    }
+  }
+
+  @keyframes underline-grow {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  /* ========================================
+   * Site Navigation Container
+   * ======================================== */
+  .site-nav {
+    --nav-height: 4rem;
+    --nav-bg: oklch(var(--lch-ink-2) / 85%);
+    --nav-border: oklch(var(--lch-ink-3) / 50%);
+    --nav-shadow:
+      0 4px 20px oklch(var(--shadow-color) / 8%),
+      0 2px 8px oklch(var(--shadow-color) / 5%);
+
+    animation: nav-entrance 0.6s var(--ease-out-expo) both;
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--nav-border);
+    box-shadow: var(--nav-shadow);
+    padding-inline: var(--main-padding);
+    position: sticky;
+    top: 0;
+    z-index: var(--z-bar);
+  }
+
+  .site-nav__inner {
+    align-items: center;
+    display: flex;
+    gap: var(--space-xl);
+    justify-content: space-between;
+    margin-inline: auto;
+    max-inline-size: var(--main-width);
+    min-block-size: var(--nav-height);
+  }
+
+  /* ========================================
+   * Brand / Logo
+   * ======================================== */
+  .site-nav__brand {
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-size: var(--text-medium);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .site-nav__brand::before {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      oklch(var(--lch-sage-medium) / 40%) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    block-size: 100%;
+    content: "";
+    inline-size: 100%;
+    inset: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .site-nav__brand:hover::before {
+    animation: brand-shimmer 2s ease-in-out infinite;
+  }
+
+  .site-nav__brand-icon {
+    color: oklch(var(--lch-sage-medium));
+    display: inline-block;
+    font-size: 1.2em;
+    margin-inline-end: 0.3em;
+    vertical-align: -0.1em;
+  }
+
+  /* ========================================
+   * Navigation Menu
+   * ======================================== */
+  .site-nav__menu {
+    align-items: center;
+    display: flex;
+    gap: var(--space-xs);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .site-nav__item {
+    position: relative;
+  }
+
+  .site-nav__link {
+    --link-padding: 0.625rem 1.25rem;
+    --underline-color: oklch(var(--lch-sage-medium));
+    --underline-height: 2px;
+
+    border-radius: var(--radius-full);
+    color: var(--color-ink-light);
+    display: block;
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: var(--link-padding);
+    position: relative;
+    text-decoration: none;
+    transition: var(--transition-normal);
+    transition-property: color, background-color;
+  }
+
+  /* Underline effect */
+  .site-nav__link::after {
+    background: var(--underline-color);
+    block-size: var(--underline-height);
+    border-radius: var(--underline-height);
+    bottom: 0.375rem;
+    content: "";
+    inline-size: calc(100% - 2.5rem);
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    transition: transform 0.25s var(--ease-out-expo);
+  }
+
+  .site-nav__link:hover {
+    color: var(--color-ink);
+  }
+
+  .site-nav__link:hover::after {
+    transform: translateX(-50%) scaleX(1);
+  }
+
+  .site-nav__link:focus-visible {
+    box-shadow: var(--glow-sage);
+    outline: none;
+  }
+
+  /* Active state */
+  .site-nav__link--active {
+    background: oklch(var(--lch-sage-lightest));
+    color: oklch(var(--lch-sage-dark));
+  }
+
+  .site-nav__link--active::after {
+    transform: translateX(-50%) scaleX(1);
+  }
+
+  /* ========================================
+   * Spacer (pushes menu to center)
+   * ======================================== */
+  .site-nav__spacer {
+    flex: 1;
+  }
+
+  /* ========================================
+   * Responsive - Mobile
+   * ======================================== */
+  @media (max-width: 640px) {
+    .site-nav {
+      --nav-height: 3.5rem;
+      padding-inline: var(--space-md);
+    }
+
+    .site-nav__inner {
+      gap: var(--space-md);
+    }
+
+    .site-nav__brand {
+      font-size: var(--text-normal);
+      letter-spacing: 0.05em;
+    }
+
+    .site-nav__menu {
+      gap: 0;
+    }
+
+    .site-nav__link {
+      --link-padding: 0.5rem 0.75rem;
+      font-size: var(--text-x-small);
+    }
+
+    .site-nav__link::after {
+      bottom: 0.25rem;
+      inline-size: calc(100% - 1.5rem);
+    }
+  }
+
+  /* Very small screens - stack or hide some items */
+  @media (max-width: 400px) {
+    .site-nav__brand-icon {
+      display: none;
+    }
+
+    .site-nav__link {
+      --link-padding: 0.5rem 0.5rem;
+    }
+  }
+
+  /* ========================================
+   * Dark Mode Adjustments
+   * ======================================== */
+  html[data-theme="dark"] .site-nav,
+  @media (prefers-color-scheme: dark) {
+    html:not([data-theme]) .site-nav {
+      --nav-bg: oklch(var(--lch-ink-2) / 90%);
+      --nav-border: oklch(var(--lch-ink-3) / 30%);
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html:not([data-theme]) .site-nav__link--active {
+      background: oklch(var(--lch-sage-light) / 20%);
+      color: oklch(var(--lch-sage-light));
+    }
+  }
+
+  html[data-theme="dark"] .site-nav__link--active {
+    background: oklch(var(--lch-sage-light) / 20%);
+    color: oklch(var(--lch-sage-light));
+  }
+}

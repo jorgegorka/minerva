@@ -1,0 +1,215 @@
+/*
+ * Minerva Base Styles
+ * Soft & Organic Design System
+ * Default styling for HTML elements
+ */
+
+@layer base {
+  /* Box sizing for all elements */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* Root element */
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+    scroll-padding-block-start: var(--space-lg);
+  }
+
+  /* Body - Warm canvas with subtle gradient */
+  body {
+    background-color: var(--color-canvas);
+    background-image: linear-gradient(
+      180deg,
+      oklch(var(--lch-ink-1)) 0%,
+      oklch(97% 0.015 80) 100%
+    );
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-normal);
+    line-height: var(--line-height-relaxed);
+    margin: 0;
+    min-block-size: 100dvh;
+    padding-block: var(--space-lg);
+    padding-inline: var(--main-padding);
+  }
+
+  /* Headings - Display font with tight line height */
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: var(--letter-spacing-tight);
+    line-height: var(--line-height-tight);
+    margin-block-start: 0;
+    margin-block-end: var(--space-md);
+  }
+
+  h1 {
+    font-size: var(--text-xx-large);
+    margin-block-end: var(--space-xl);
+    text-align: center;
+  }
+
+  h2 {
+    font-size: var(--text-x-large);
+    text-align: center;
+  }
+
+  h3 {
+    font-size: var(--text-large);
+  }
+
+  h4 {
+    font-size: var(--text-medium);
+  }
+
+  /* Paragraphs */
+  p {
+    margin-block-start: 0;
+    margin-block-end: var(--space-md);
+  }
+
+  /* Links - Sage green accent */
+  a {
+    color: var(--color-link);
+    text-decoration: none;
+    text-underline-offset: 0.2em;
+    transition: color var(--transition-fast);
+  }
+
+  a:hover {
+    color: oklch(var(--lch-sage-dark));
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+  }
+
+  a:focus-visible {
+    border-radius: var(--radius-sm);
+    outline: var(--focus-ring);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  /* Lists */
+  ul, ol {
+    margin-block-start: 0;
+    margin-block-end: var(--space-md);
+    padding-inline-start: 1.5em;
+  }
+
+  li {
+    margin-block-end: var(--space-xs);
+  }
+
+  /* Strong & emphasis */
+  strong, b {
+    font-weight: 700;
+  }
+
+  /* Code - Warm background tint */
+  code, pre {
+    font-family: var(--font-mono);
+  }
+
+  code {
+    background-color: var(--color-canvas-alt);
+    border-radius: var(--radius-sm);
+    font-size: 0.875em;
+    padding-block: 0.15em;
+    padding-inline: 0.4em;
+  }
+
+  pre {
+    background-color: var(--color-canvas-alt);
+    border-radius: var(--radius-md);
+    margin-block: var(--space-lg);
+    overflow-x: auto;
+    padding: var(--space-lg);
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+  }
+
+  /* Horizontal rule - Subtle divider */
+  hr {
+    border: none;
+    border-block-start: 1px solid var(--border-color);
+    margin-block: var(--space-xl);
+  }
+
+  /* Images */
+  img {
+    display: block;
+    max-inline-size: 100%;
+    block-size: auto;
+  }
+
+  /* Labels - Softer uppercase styling */
+  label {
+    color: var(--color-ink-light);
+    display: block;
+    font-size: var(--text-small);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    margin-block-end: var(--space-sm);
+    text-transform: uppercase;
+  }
+
+  /* Remove default button styling */
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    padding: 0;
+  }
+
+  /* Tables */
+  table {
+    border-collapse: collapse;
+    inline-size: 100%;
+  }
+
+  th, td {
+    border-block-end: 1px solid var(--border-color);
+    padding: var(--space-sm);
+    text-align: start;
+  }
+
+  th {
+    font-weight: 700;
+  }
+
+  /* Selection - Sage tinted */
+  ::selection {
+    background-color: oklch(var(--lch-sage-light));
+    color: oklch(var(--lch-sage-dark));
+  }
+
+  /* Scrollbar styling (webkit browsers) */
+  ::-webkit-scrollbar {
+    block-size: 8px;
+    inline-size: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: oklch(var(--lch-ink-2));
+    border-radius: var(--radius-full);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: oklch(var(--lch-ink-4));
+    border-radius: var(--radius-full);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: oklch(var(--lch-ink-5));
+  }
+}

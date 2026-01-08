@@ -1,0 +1,113 @@
+/*
+ * Minerva Card Styles
+ * Soft & Organic Design System
+ * Card container component
+ */
+
+@layer components {
+  .card {
+    /* Configurable properties */
+    --card-bg: oklch(var(--lch-ink-1));
+    --card-border: oklch(var(--lch-ink-3));
+    --card-padding: var(--space-lg);
+    --card-radius: var(--radius-lg);
+    --card-shadow: var(--shadow-sm);
+
+    /* Applied styles */
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    margin-block-end: var(--space-lg);
+    padding: var(--card-padding);
+    position: relative;
+    transition: box-shadow var(--transition-normal);
+  }
+
+  .card h3 {
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    margin-block-start: 0;
+  }
+
+  .card p {
+    color: var(--color-ink-light);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .card p:last-child {
+    margin-block-end: 0;
+  }
+
+  /* Card actions container */
+  .card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-block-start: var(--space-lg);
+  }
+
+  /* Card header with separator */
+  .card__header {
+    border-block-end: 1px solid var(--card-border);
+    margin-block-end: var(--space-lg);
+    padding-block-end: var(--space-md);
+  }
+
+  /* Card footer */
+  .card__footer {
+    border-block-start: 1px solid var(--card-border);
+    margin-block-start: var(--space-lg);
+    padding-block-start: var(--space-md);
+  }
+
+  /* Interactive cards */
+  .card--interactive {
+    cursor: pointer;
+  }
+
+  .card--interactive:hover {
+    --card-shadow: var(--shadow-md);
+  }
+
+  /* Elevated variant (more prominent) */
+  .card--elevated {
+    --card-bg: white;
+    --card-shadow: var(--shadow-lg);
+  }
+
+  /* Accent border on left side - Sage */
+  .card--accent {
+    --card-accent: oklch(var(--lch-sage-medium));
+    border-inline-start: 4px solid var(--card-accent);
+    border-start-start-radius: var(--radius-sm);
+    border-end-start-radius: var(--radius-sm);
+  }
+
+  /* Colored card variants */
+  .card--sage {
+    --card-bg: oklch(var(--lch-sage-lightest));
+    --card-border: oklch(var(--lch-sage-light));
+  }
+
+  .card--rose {
+    --card-bg: oklch(var(--lch-rose-lightest));
+    --card-border: oklch(var(--lch-rose-light));
+  }
+
+  .card--lavender {
+    --card-bg: oklch(var(--lch-lavender-lightest));
+    --card-border: oklch(var(--lch-lavender-light));
+  }
+
+  /* Compact variant */
+  .card--compact {
+    --card-padding: var(--space-md);
+    --card-radius: var(--radius-md);
+  }
+
+  /* Last card removes bottom margin */
+  .card:last-child {
+    margin-block-end: 0;
+  }
+}

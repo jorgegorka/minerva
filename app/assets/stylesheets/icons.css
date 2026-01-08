@@ -1,0 +1,32 @@
+/*
+ * Minerva Icon Styles
+ * CSS mask-based icon system using SVG files
+ */
+
+@layer components {
+  .icon {
+    --icon-size: 1em;
+
+    background-color: currentColor;
+    block-size: var(--icon-size);
+    display: inline-block;
+    flex-shrink: 0;
+    inline-size: var(--icon-size);
+    mask-image: var(--svg);
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: var(--icon-size);
+    vertical-align: middle;
+  }
+
+  /* Icon definitions */
+  .icon--paperclip { --svg: url("paperclip.svg"); }
+  .icon--arrow-left { --svg: url("arrow-left.svg"); }
+  .icon--trash { --svg: url("trash.svg"); }
+  .icon--pencil { --svg: url("pencil.svg"); }
+  .icon--check { --svg: url("check.svg"); }
+  .icon--close { --svg: url("close.svg"); }
+  .icon--caret-down { --svg: url("caret-down.svg"); }
+  .icon--search { --svg: url("search.svg"); }
+  .icon--add { --svg: url("add.svg"); }
+}

@@ -1,0 +1,21 @@
+<%= form_with model: category, local: true, class: "flex flex-column gap" do |form| %>
+  <% if category.errors.any? %>
+    <div class="alert alert--negative">
+      <p class="margin-block-none font-weight-semibold"><%= pluralize(category.errors.count, "error") %> prohibited this category from being saved:</p>
+      <ul class="margin-block-half">
+        <% category.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="flex flex-column gap-half">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "input", placeholder: "Enter category title" %>
+  </div>
+
+  <div class="margin-block-start">
+    <%= form.submit class: "btn btn--reversed full-width" %>
+  </div>
+<% end %>

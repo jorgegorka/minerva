@@ -7,7 +7,7 @@ class ScraperTest < ActiveSupport::TestCase
   end
 
   teardown do
-    Document.destroy_all
+    WebPage.destroy_all
   end
 
   test "initializes correctly with URL" do
@@ -18,58 +18,58 @@ class ScraperTest < ActiveSupport::TestCase
     assert_equal @url, @scraper.send(:url)
   end
 
-  test "document creation with proper URL assignment" do
-    # Test that we can create a document with the URL field
-    document = Document.create!(
+  test "web_page creation with proper URL assignment" do
+    # Test that we can create a web_page with the URL field
+    web_page = WebPage.create!(
       url: @url,
       title: "Test Title",
       content: "Test content"
     )
 
-    assert_equal @url, document.url
-    assert_equal "Test Title", document.title
-    assert_equal "Test content", document.content
+    assert_equal @url, web_page.url
+    assert_equal "Test Title", web_page.title
+    assert_equal "Test content", web_page.content
   end
 
   test "URL uniqueness constraint works" do
-    # First document
-    Document.create!(
+    # First web_page
+    WebPage.create!(
       url: @url,
       title: "First Title",
       content: "First content"
     )
 
-    # Second document with same URL should fail
-    duplicate_document = Document.new(
+    # Second web_page with same URL should fail
+    duplicate_web_page = WebPage.new(
       url: @url,
       title: "Second Title",
       content: "Second content"
     )
 
-    refute duplicate_document.valid?
-    assert_includes duplicate_document.errors[:url], "has already been taken"
+    refute duplicate_web_page.valid?
+    assert_includes duplicate_web_page.errors[:url], "has already been taken"
   end
 
-  test "handles documents without URL" do
-    # Should be able to create documents without URL (existing functionality)
-    document = Document.create!(
+  test "handles web_pages without URL" do
+    # Should be able to create web_pages without URL (existing functionality)
+    web_page = WebPage.create!(
       title: "No URL Title",
       content: "Content without URL"
     )
 
-    assert_nil document.url
-    assert_equal "No URL Title", document.title
+    assert_nil web_page.url
+    assert_equal "No URL Title", web_page.title
   end
 
-  test "multiple documents with nil URLs are allowed" do
-    Document.destroy_all  # Ensure clean slate
+  test "multiple web_pages with nil URLs are allowed" do
+    WebPage.destroy_all  # Ensure clean slate
 
-    doc1 = Document.create!(title: "Title 1", content: "Content 1")
-    doc2 = Document.create!(title: "Title 2", content: "Content 2")
+    doc1 = WebPage.create!(title: "Title 1", content: "Content 1")
+    doc2 = WebPage.create!(title: "Title 2", content: "Content 2")
 
     assert_nil doc1.url
     assert_nil doc2.url
-    assert_equal 2, Document.count
+    assert_equal 2, WebPage.count
   end
 
   test "scraper uses correct user agent header format" do
@@ -84,7 +84,7 @@ class ScraperTest < ActiveSupport::TestCase
     expected_tags = %w[p h1 h2 h3]
 
     # This tests that we know what tags should be used
-    # The actual implementation uses these in Readability::Document.new
+    # The actual implementation uses these in Readability::WebPage.new
     assert_equal expected_tags, %w[p h1 h2 h3]
   end
 end
