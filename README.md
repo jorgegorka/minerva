@@ -2,6 +2,9 @@
 
 A Rails 8 MCP (Model Context Protocol) server that provides a knowledge base for AI agents. Elevate your AI applications with enhanced reasoning and dynamic tool usage through RAG-powered document retrieval.
 
+<img width="907" height="918" alt="minerva" src="https://github.com/user-attachments/assets/351a469d-a4a1-4fb3-9503-eb8854a7b29c" />
+
+
 ## Features
 
 - **Document Management** - Create and organize markdown documents via web UI
