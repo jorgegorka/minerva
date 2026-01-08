@@ -12,7 +12,7 @@ class Document < ApplicationRecord
 
   after_commit :enqueue_pdf_processing, on: [ :create, :update ], if: :file_attachment_changed?
 
-  after_update :enqueue_embedding_job, if: :needs_embedding?
+  after_commit :enqueue_embedding_job, on: [ :create, :update ], if: :needs_embedding?
 
   scope :search, ->(query) {
     where("to_tsvector(content) @@ plainto_tsquery(?)", query)
@@ -35,6 +35,7 @@ class Document < ApplicationRecord
 
     def enqueue_pdf_processing
       return unless file.attached? && file.content_type == "application/pdf"
+      return if content.present? && content != "Processing..."
 
       Rails.logger.info "Document #{id}: Enqueuing PDF processing job for file change"
       ProcessPdfAttachmentJob.perform_later(id)

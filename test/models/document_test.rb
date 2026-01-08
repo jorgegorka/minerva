@@ -14,10 +14,12 @@ class DocumentTest < ActiveSupport::TestCase
       content_type: "application/pdf"
     )
 
-    # Should enqueue both PDF processing and embedding jobs (total of 2)
-    assert_enqueued_jobs 2 do
+    # Should enqueue both PDF processing and embedding jobs
+    assert_enqueued_jobs 1, only: ProcessPdfAttachmentJob do
       document.save!
     end
+
+    assert_enqueued_with job: CreateEmbeddingJob, args: [ document.id ]
   end
 
   test "does not enqueue PDF processing for non-PDF files" do

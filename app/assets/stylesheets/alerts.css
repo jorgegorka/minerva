@@ -1,0 +1,114 @@
+/*
+ * Minerva Alert Styles
+ * Soft & Organic Design System
+ * Notification and alert components
+ */
+
+@layer components {
+  .alert {
+    /* Configurable properties */
+    --alert-bg: oklch(var(--lch-ink-2));
+    --alert-color: var(--color-ink);
+    --alert-border-color: oklch(var(--lch-ink-4));
+    --alert-accent: oklch(var(--lch-ink-5));
+
+    /* Applied styles */
+    background-color: var(--alert-bg);
+    border: 1px solid var(--alert-border-color);
+    border-inline-start: 4px solid var(--alert-accent);
+    border-radius: var(--radius-md);
+    color: var(--alert-color);
+    font-weight: 500;
+    line-height: var(--line-height-relaxed);
+    margin-block-end: var(--space-lg);
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  .alert p:last-child {
+    margin-block-end: 0;
+  }
+
+  /* Positive/Success variant - Soft teal tint */
+  .alert--positive {
+    --alert-bg: oklch(var(--lch-green-light));
+    --alert-color: oklch(var(--lch-green-dark));
+    --alert-border-color: oklch(var(--lch-green-medium) / 30%);
+    --alert-accent: oklch(var(--lch-green-medium));
+  }
+
+  /* Negative/Error variant - Soft coral tint */
+  .alert--negative {
+    --alert-bg: oklch(var(--lch-red-light));
+    --alert-color: oklch(var(--lch-red-dark));
+    --alert-border-color: oklch(var(--lch-red-medium) / 30%);
+    --alert-accent: oklch(var(--lch-red-medium));
+  }
+
+  /* Warning variant - Soft amber tint */
+  .alert--warning {
+    --alert-bg: oklch(var(--lch-yellow-light));
+    --alert-color: oklch(var(--lch-yellow-dark));
+    --alert-border-color: oklch(var(--lch-yellow-medium) / 30%);
+    --alert-accent: oklch(var(--lch-yellow-medium));
+  }
+
+  /* Info variant - Soft blue tint */
+  .alert--info {
+    --alert-bg: oklch(var(--lch-blue-light));
+    --alert-color: oklch(var(--lch-blue-dark));
+    --alert-border-color: oklch(var(--lch-blue-medium) / 30%);
+    --alert-accent: oklch(var(--lch-blue-medium));
+  }
+
+  /* Sage variant - Matches primary accent */
+  .alert--sage {
+    --alert-bg: oklch(var(--lch-sage-lightest));
+    --alert-color: oklch(var(--lch-sage-dark));
+    --alert-border-color: oklch(var(--lch-sage-medium) / 30%);
+    --alert-accent: oklch(var(--lch-sage-medium));
+  }
+
+  /* Alert with list (for error messages) */
+  .alert ul {
+    margin-block-end: 0;
+    padding-inline-start: 1.5em;
+  }
+
+  .alert li {
+    margin-block-end: var(--space-xs);
+  }
+
+  .alert li:last-child {
+    margin-block-end: 0;
+  }
+
+  /* Alert with icon */
+  .alert--with-icon {
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  .alert--with-icon .icon {
+    flex-shrink: 0;
+    margin-block-start: 0.125em;
+  }
+
+  /* Dismissible alert */
+  .alert--dismissible {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+
+  .alert__close {
+    color: var(--alert-color);
+    flex-shrink: 0;
+    opacity: 0.6;
+    transition: opacity var(--transition-fast);
+  }
+
+  .alert__close:hover {
+    opacity: 1;
+  }
+}

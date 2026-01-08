@@ -1,0 +1,11 @@
+<div class="main-container">
+  <h1>New Document</h1>
+
+  <div class="txt-center margin-block">
+    <%= link_to documents_path do %>
+      <%= icon_tag "arrow-left" %> Back to Documents
+    <% end %>
+  </div>
+
+  <%= render 'form', document: @document %>
+</div>

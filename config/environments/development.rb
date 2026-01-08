@@ -53,8 +53,14 @@ Rails.application.configure do
   config.active_record.query_log_tags_enabled = true
 
   # Highlight code that enqueued background job in logs.
-  config.active_job.queue_adapter = :solid_queue
   config.active_job.verbose_enqueue_logs = true
+  config.active_job.queue_adapter = :solid_queue
+
+  # Highlight code that triggered redirect in logs.
+  config.action_dispatch.verbose_redirect_logs = true
+
+  # Suppress logger output for asset requests.
+  config.assets.quiet = true
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true

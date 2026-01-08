@@ -1,0 +1,162 @@
+/*
+ * Minerva Layout Styles
+ * Soft & Organic Design System
+ * Main container and layout components
+ */
+
+@layer components {
+  /* Main container - Warm, elevated card */
+  .main-container {
+    --container-bg: oklch(var(--lch-ink-2));
+    --container-radius: var(--radius-xl);
+    --container-padding: var(--space-2xl);
+    --container-shadow: var(--shadow-lg);
+
+    background-color: var(--container-bg);
+    border-radius: var(--container-radius);
+    box-shadow: var(--container-shadow);
+    margin-block: var(--space-lg);
+    margin-inline: auto;
+    max-inline-size: var(--main-width);
+    padding: var(--container-padding);
+    position: relative;
+  }
+
+  /* Subtle top gradient for depth */
+  .main-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      180deg,
+      oklch(100% 0 0 / 4%) 0%,
+      transparent 50%
+    );
+    pointer-events: none;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    .main-container {
+      --container-radius: var(--radius-lg);
+      --container-padding: var(--space-lg);
+      margin-inline: var(--space-md);
+    }
+  }
+
+  /* Header with navigation */
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-block-end: var(--space-xl);
+  }
+
+  .page-header__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .page-header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  /* Section divider */
+  .section-divider {
+    border: none;
+    border-block-start: 1px solid oklch(var(--lch-ink-3));
+    margin-block: var(--space-xl);
+  }
+
+  /* Content sections */
+  .content-section {
+    margin-block-end: var(--space-2xl);
+  }
+
+  .content-section:last-child {
+    margin-block-end: 0;
+  }
+
+  /* Page footer */
+  .page-footer {
+    border-block-start: 1px solid oklch(var(--lch-ink-3));
+    color: var(--color-ink-light);
+    font-size: var(--text-small);
+    margin-block-start: var(--space-2xl);
+    padding-block-start: var(--space-lg);
+    text-align: center;
+  }
+
+  /* Two-column layout */
+  .two-column {
+    display: grid;
+    gap: var(--space-xl);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .two-column {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* Sidebar layout */
+  .with-sidebar {
+    display: grid;
+    gap: var(--space-xl);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 800px) {
+    .with-sidebar {
+      grid-template-columns: 1fr 280px;
+    }
+  }
+
+  /* Stacked layout */
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .stack--sm {
+    gap: var(--space-sm);
+  }
+
+  .stack--md {
+    gap: var(--space-md);
+  }
+
+  .stack--xl {
+    gap: var(--space-xl);
+  }
+
+  /* Centered content */
+  .centered-content {
+    margin-inline: auto;
+    max-inline-size: 600px;
+    text-align: center;
+  }
+
+  /* Empty state */
+  .empty-state {
+    color: var(--color-ink-light);
+    padding: var(--space-3xl) var(--space-lg);
+    text-align: center;
+  }
+
+  .empty-state h3 {
+    color: var(--color-ink);
+    margin-block-end: var(--space-sm);
+  }
+
+  .empty-state p {
+    margin-block-end: var(--space-lg);
+  }
+}

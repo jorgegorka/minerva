@@ -1,0 +1,180 @@
+/*
+ * Minerva Button Styles
+ * Soft & Organic Design System
+ * Button component with CSS custom property variants
+ */
+
+@layer components {
+  .btn {
+    /* Configurable properties */
+    --btn-background: oklch(var(--lch-ink-2));
+    --btn-border-color: oklch(var(--lch-ink-3));
+    --btn-color: var(--color-ink);
+    --btn-padding: 0.875em 1.75em;
+    --btn-font-weight: 600;
+    --btn-border-radius: var(--radius-full);
+    --btn-shadow: var(--shadow-xs);
+    --btn-icon-size: 1.3em;
+
+    /* Applied styles */
+    align-items: center;
+    background: linear-gradient(
+      to bottom,
+      oklch(from var(--btn-background) calc(l + 0.02) c h),
+      var(--btn-background)
+    );
+    border: 1px solid var(--btn-border-color);
+    border-radius: var(--btn-border-radius);
+    box-shadow: var(--btn-shadow);
+    color: var(--btn-color);
+    cursor: pointer;
+    display: inline-flex;
+    font-family: inherit;
+    font-size: var(--text-normal);
+    font-weight: var(--btn-font-weight);
+    gap: 0.625em;
+    justify-content: center;
+    letter-spacing: 0.01em;
+    padding: var(--btn-padding);
+    text-align: center;
+    text-decoration: none;
+    transition: var(--transition-normal);
+    transition-property: background, border-color, box-shadow, transform;
+  }
+
+  .btn:hover {
+    --btn-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .btn:active {
+    --btn-shadow: var(--shadow-xs);
+    transform: translateY(0);
+  }
+
+  .btn:focus-visible {
+    box-shadow: var(--glow-sage), var(--btn-shadow);
+    outline: none;
+  }
+
+  .btn:disabled,
+  .btn[disabled] {
+    cursor: not-allowed;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  /* Primary/Reversed variant - Sage green */
+  .btn--reversed {
+    --btn-background: oklch(var(--lch-sage-medium));
+    --btn-border-color: oklch(var(--lch-sage-medium));
+    --btn-color: white;
+  }
+
+  .btn--reversed:hover {
+    --btn-background: oklch(var(--lch-sage-dark));
+    --btn-border-color: oklch(var(--lch-sage-dark));
+  }
+
+  /* Negative variant (danger/destructive) - Soft coral */
+  .btn--negative {
+    --btn-background: oklch(var(--lch-red-medium));
+    --btn-border-color: oklch(var(--lch-red-medium));
+    --btn-color: white;
+  }
+
+  .btn--negative:hover {
+    --btn-background: oklch(var(--lch-red-dark));
+    --btn-border-color: oklch(var(--lch-red-dark));
+  }
+
+  /* Positive variant (success/confirm) - Soft teal */
+  .btn--positive {
+    --btn-background: oklch(var(--lch-green-medium));
+    --btn-border-color: oklch(var(--lch-green-medium));
+    --btn-color: white;
+  }
+
+  .btn--positive:hover {
+    --btn-background: oklch(var(--lch-green-dark));
+    --btn-border-color: oklch(var(--lch-green-dark));
+  }
+
+  /* Ghost variant - Transparent with border */
+  .btn--ghost {
+    --btn-background: transparent;
+    --btn-border-color: oklch(var(--lch-ink-4));
+    --btn-shadow: none;
+    background: transparent;
+  }
+
+  .btn--ghost:hover {
+    --btn-background: oklch(var(--lch-ink-2));
+    --btn-shadow: var(--shadow-xs);
+    background: var(--btn-background);
+  }
+
+  /* Link variant (text only, no background) */
+  .btn--link {
+    --btn-background: transparent;
+    --btn-border-color: transparent;
+    --btn-color: var(--color-link);
+    --btn-padding: 0;
+    --btn-shadow: none;
+    background: transparent;
+  }
+
+  .btn--link:hover {
+    --btn-color: oklch(var(--lch-sage-dark));
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    transform: none;
+  }
+
+  /* Plain variant (minimal styling) */
+  .btn--plain {
+    --btn-background: transparent;
+    --btn-border-color: transparent;
+    --btn-shadow: none;
+    background: transparent;
+  }
+
+  .btn--plain:hover {
+    --btn-background: oklch(var(--lch-ink-2));
+    background: var(--btn-background);
+  }
+
+  /* Small size */
+  .btn--small {
+    --btn-padding: 0.5em 1.25em;
+    font-size: var(--text-small);
+  }
+
+  /* Large size */
+  .btn--large {
+    --btn-padding: 1em 2.25em;
+    font-size: var(--text-medium);
+  }
+
+  /* Icon-only button */
+  .btn[aria-label]:where(:has(.icon)),
+  .btn:where(:has(.for-screen-reader):has(.icon)) {
+    --btn-padding: 0;
+    --icon-size: 75%;
+    aspect-ratio: 1;
+    display: grid;
+    min-block-size: 2.75em;
+    min-inline-size: 2.75em;
+    place-items: center;
+  }
+
+  /* Circle variant for icon buttons */
+  .btn--circle {
+    --btn-border-radius: 50%;
+  }
+
+  /* Full width */
+  .btn--full {
+    inline-size: 100%;
+  }
+}
