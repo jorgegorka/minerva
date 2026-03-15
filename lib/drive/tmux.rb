@@ -7,6 +7,7 @@ require_relative "errors"
 module Drive
   module Tmux
     TMUX_TIMEOUT = 10
+    FIELD_SEPARATOR = "|||"
 
     SessionInfo = Data.define(:name, :windows, :created, :attached)
     RunResult = Data.define(:stdout, :stderr, :status)
@@ -14,9 +15,11 @@ module Drive
     module_function
 
     def require_tmux
-      path = `which tmux 2>/dev/null`.strip
-      raise TmuxNotFoundError if path.empty?
-      path
+      @tmux_path ||= begin
+        path = `which tmux 2>/dev/null`.strip
+        raise TmuxNotFoundError if path.empty?
+        path
+      end
     end
 
     def run(args, check: true)
@@ -85,14 +88,15 @@ module Drive
     end
 
     def list_sessions
+      sep = FIELD_SEPARATOR
       result = run(
-        ["list-sessions", "-F", '#{session_name}|||#{session_windows}|||#{session_created_string}|||#{session_attached}'],
+        ["list-sessions", "-F", "\#{session_name}#{sep}\#{session_windows}#{sep}\#{session_created_string}#{sep}\#{session_attached}"],
         check: false
       )
       return [] unless result.status.success?
 
       result.stdout.strip.split("\n").filter_map do |line|
-        parts = line.split("|||")
+        parts = line.split(sep)
         next unless parts.length >= 4
         SessionInfo.new(
           name: parts[0],
@@ -104,8 +108,9 @@ module Drive
     end
 
     def kill_session(name)
-      require_session(name)
       run(["kill-session", "-t", name])
+    rescue TmuxCommandError
+      raise SessionNotFoundError.new(name)
     end
 
     def resolve_target(session, pane = nil)
@@ -113,17 +118,19 @@ module Drive
     end
 
     def send_keys(session, keys, pane: nil, enter: true, literal: false)
-      require_session(session)
       target = resolve_target(session, pane)
-      args = ["send-keys", "-t", target]
-      args << "-l" if literal
-      args << keys
-      run(args)
-      run(["send-keys", "-t", target, "Enter"]) if enter
+      if literal
+        args = ["send-keys", "-t", target, "-l", keys]
+        run(args)
+        run(["send-keys", "-t", target, "Enter"]) if enter
+      else
+        args = ["send-keys", "-t", target, keys]
+        args << "Enter" if enter
+        run(args)
+      end
     end
 
     def capture_pane(session, pane: nil, start_line: nil, end_line: nil)
-      require_session(session)
       target = resolve_target(session, pane)
       args = ["capture-pane", "-p", "-t", target]
       args.push("-S", start_line.to_s) if start_line

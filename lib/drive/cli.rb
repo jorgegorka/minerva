@@ -319,6 +319,8 @@ module Drive
       end
 
       exit 1 unless all_ok
+    rescue DriveError => e
+      Output.emit_error(e, json: options[:json])
     end
   end
 end

@@ -71,7 +71,7 @@ module Drive
       stdout, _stderr, _status = Open3.capture3("ps", "-eo", "uid,pid,ppid,pcpu,rss,etime,stat,command")
       processes = parse_ps_output(stdout)
 
-      session_map = session_pid_map
+      session_map = nil
       session_pids = nil
 
       if session
@@ -87,6 +87,7 @@ module Drive
         next if session_pids && !session_pids.include?(p.pid)
 
         resolved_cwd = resolve_cwd(p.pid)
+        session_map ||= session_pid_map
         sess = session_map[p.pid]
         updated = ProcessInfo.new(**p.to_h.merge(cwd: resolved_cwd, session: sess))
 
@@ -109,12 +110,15 @@ module Drive
       raise ProcessNotFoundError.new(pid: pid, name: name) if targets.empty?
 
       all_pids = []
+      if tree
+        stdout, = Open3.capture3("ps", "-eo", "pid,ppid")
+        entries = parse_pid_ppid(stdout)
+      end
       targets.each do |target_pid|
         next if target_pid <= 1 || target_pid == Process.pid
         all_pids << target_pid
         if tree
-          stdout, = Open3.capture3("ps", "-eo", "pid,ppid")
-          children = find_descendants(parse_pid_ppid(stdout), target_pid)
+          children = find_descendants(entries, target_pid)
           all_pids.concat(children.reverse)
         end
       end
@@ -197,11 +201,12 @@ module Drive
 
     def session_pid_map
       pid_map = {}
-      result = Tmux.run(["list-panes", "-a", "-F", '#{session_name}|||#{pane_pid}'], check: false)
+      sep = Tmux::FIELD_SEPARATOR
+      result = Tmux.run(["list-panes", "-a", "-F", "\#{session_name}#{sep}\#{pane_pid}"], check: false)
       return pid_map unless result.status.success?
 
       result.stdout.strip.split("\n").each do |line|
-        parts = line.split("|||")
+        parts = line.split(sep)
         pid_map[parts[1].to_i] = parts[0] if parts.length == 2
       end
       pid_map
