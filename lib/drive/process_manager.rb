@@ -164,6 +164,8 @@ module Drive
             failed << { pid: p, error: "permission_denied" }
           end
         end
+      else
+        remaining.each { |p| killed << p }
       end
 
       KillResult.new(killed: killed.uniq, failed: failed, signal: signal)

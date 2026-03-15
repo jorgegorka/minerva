@@ -147,7 +147,7 @@ module Drive
 
     def open_terminal_window(command)
       cwd = Dir.pwd
-      shell_command = "cd '#{cwd}' && #{command}"
+      shell_command = "cd #{Shellwords.escape(cwd)} && #{command}"
       escaped = shell_command.gsub("\\", "\\\\\\\\").gsub('"', '\\"')
       system("osascript", "-e", %Q(tell application "Terminal" to do script "#{escaped}"))
     rescue StandardError
