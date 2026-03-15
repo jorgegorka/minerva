@@ -102,4 +102,30 @@ class DriveCliTest < Minitest::Test
     system("tmux kill-session -t #{s1} 2>/dev/null")
     system("tmux kill-session -t #{s2} 2>/dev/null")
   end
+
+  # Proc commands
+  def test_proc_list_json
+    result = drive_json("proc", "list")
+    assert result["ok"]
+    assert result["count"] > 0
+    assert result["processes"].is_a?(Array)
+  end
+
+  def test_proc_list_filter_by_name
+    result = drive_json("proc", "list", "--name", "ruby")
+    assert result["ok"]
+    assert result["processes"].length > 0
+  end
+
+  def test_proc_tree_json
+    result = drive_json("proc", "tree", Process.pid.to_s)
+    assert result["ok"]
+    assert_equal Process.pid, result["tree"]["pid"]
+  end
+
+  def test_proc_top_json
+    result = drive_json("proc", "top", "--pid", Process.pid.to_s)
+    assert result["ok"]
+    assert result["snapshot"].is_a?(Array)
+  end
 end

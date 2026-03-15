@@ -5,6 +5,7 @@ require_relative "errors"
 require_relative "output"
 require_relative "tmux"
 require_relative "sentinel"
+require_relative "process_manager"
 
 module Drive
   class Session < Thor
@@ -60,9 +61,134 @@ module Drive
     end
   end
 
+  class ProcCmd < Thor
+    namespace :proc
+
+    desc "list", "List processes owned by current user"
+    option :name, type: :string, desc: "Filter by process name"
+    option :session, type: :string, desc: "Filter by tmux session name"
+    option :parent, type: :numeric, desc: "Filter by parent PID"
+    option :cwd, type: :string, desc: "Filter by working directory"
+    option :json, type: :boolean, default: false, desc: "Output JSON"
+    def list
+      processes = ProcessManager.list_processes(
+        name: options[:name], parent: options[:parent]&.to_i,
+        session: options[:session], cwd: options[:cwd]
+      )
+      if options[:json]
+        Output.emit({ ok: true, count: processes.length, processes: processes.map(&:to_output_h) }, json: true, human_lines: "")
+      else
+        if processes.empty?
+          puts "No matching processes."
+        else
+          processes.each do |p|
+            sess = p.session ? "  [#{p.session}]" : ""
+            cpu = p.cpu ? format("%5.1f%%", p.cpu) : "    -  "
+            cmd = p.command.length > 60 ? "...#{p.command[-60..]}" : p.command
+            puts format("  %-8d %-20s %s  %7.1fMB  %8s  %s%s", p.pid, p.name, cpu, p.memory_mb, p.elapsed, p.state, sess)
+            puts "           #{cmd}"
+          end
+        end
+      end
+    rescue DriveError => e
+      Output.emit_error(e, json: options[:json])
+    end
+
+    desc "kill [PID]", "Kill a process by PID or name"
+    option :name, type: :string, desc: "Kill all processes matching name"
+    option :signal, type: :numeric, default: 15
+    option :force, type: :boolean, default: false
+    option :tree, type: :boolean, default: false
+    option :json, type: :boolean, default: false
+    def kill(pid = nil)
+      sig = options[:force] ? 9 : options[:signal]
+      if pid.nil? && options[:name].nil?
+        Output.emit_error(DriveError.new("Provide a PID argument or --name to kill"), json: options[:json])
+        return
+      end
+      result = ProcessManager.kill_process(pid: pid&.to_i, name: options[:name], signal: sig, tree: options[:tree])
+      if options[:json]
+        Output.emit(result.to_h, json: true, human_lines: "")
+      else
+        killed_str = result.killed.join(", ")
+        puts killed_str.empty? ? "No processes killed." : "Killed: #{killed_str}"
+        result.failed.each { |f| puts "  Failed: PID #{f[:pid]} (#{f[:error]})" }
+      end
+    rescue DriveError => e
+      Output.emit_error(e, json: options[:json])
+    end
+
+    desc "tree PID", "Show process tree from PID"
+    option :session, type: :string
+    option :json, type: :boolean, default: false
+    def tree(pid = nil)
+      if pid.nil? && options[:session].nil?
+        Output.emit_error(DriveError.new("Provide a PID argument or --session"), json: options[:json])
+        return
+      end
+      if options[:session]
+        pids = ProcessManager.get_session_pids(options[:session])
+        raise ProcessNotFoundError.new(name: "session:#{options[:session]}") if pids.empty?
+        pid = pids.first.to_s
+      end
+      tree_data = ProcessManager.process_tree(pid.to_i)
+      if options[:json]
+        Output.emit({ ok: true, root: pid.to_i, tree: tree_data }, json: true, human_lines: "")
+      else
+        print_tree(tree_data)
+      end
+    rescue DriveError => e
+      Output.emit_error(e, json: options[:json])
+    end
+
+    desc "top", "Resource snapshot for PIDs or session"
+    option :pid, type: :string, desc: "Comma-separated PIDs"
+    option :session, type: :string
+    option :json, type: :boolean, default: false
+    def top
+      pid_list = []
+      if options[:session]
+        root_pids = ProcessManager.get_session_pids(options[:session])
+        pid_list = ProcessManager.descendant_pids(root_pids)
+      elsif options[:pid]
+        pid_list = options[:pid].split(",").map { |p| p.strip.to_i }.select(&:positive?)
+      end
+      if pid_list.empty?
+        Output.emit_error(DriveError.new("Provide --pid or --session"), json: options[:json])
+        return
+      end
+      snapshot = ProcessManager.process_snapshot(pid_list)
+      if options[:json]
+        Output.emit({ ok: true, snapshot: snapshot.map(&:to_output_h) }, json: true, human_lines: "")
+      else
+        if snapshot.empty?
+          puts "No processes found."
+        else
+          snapshot.each do |p|
+            cpu = p.cpu ? format("%5.1f%%", p.cpu) : "    -  "
+            puts format("  %-8d %-20s %s  %7.1fMB  %8s  %s", p.pid, p.name, cpu, p.memory_mb, p.elapsed, p.state)
+          end
+        end
+      end
+    rescue DriveError => e
+      Output.emit_error(e, json: options[:json])
+    end
+
+    private
+
+    def print_tree(node, indent = 0)
+      prefix = indent > 0 ? ("  " * indent + "└─ ") : ""
+      puts "#{prefix}#{node[:pid]} #{node[:name]}"
+      (node[:children] || []).each { |c| print_tree(c, indent + 1) }
+    end
+  end
+
   class Cli < Thor
     desc "session SUBCOMMAND", "Manage tmux sessions"
     subcommand "session", Session
+
+    desc "proc SUBCOMMAND", "Manage processes"
+    subcommand "proc", ProcCmd
 
     map "run" => :run_command, "send" => :send_command
     desc "run SESSION CMD", "Run a command and wait for completion"
