@@ -1,0 +1,23 @@
+<div class="main-container" data-controller="console-poll" data-console-poll-url-value="<%= consoles_path(format: :json) %>" data-console-poll-interval-value="3000">
+  <h1>Consoles</h1>
+
+  <% if notice %>
+    <div class="alert alert--positive"><%= notice %></div>
+  <% end %>
+  <% if alert %>
+    <div class="alert alert--negative"><%= alert %></div>
+  <% end %>
+
+  <div data-console-poll-target="list">
+    <% if @consoles.any? %>
+      <% @consoles.each do |console| %>
+        <%= render "console_card", console: console %>
+      <% end %>
+    <% else %>
+      <div class="card">
+        <p>No active tmux sessions found.</p>
+        <p class="txt-subtle">Start a session with <code>bin/drive create &lt;name&gt;</code></p>
+      </div>
+    <% end %>
+  </div>
+</div>

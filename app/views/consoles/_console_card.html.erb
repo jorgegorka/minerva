@@ -1,0 +1,9 @@
+<%= link_to console_path(name: console.name), class: "card card--interactive card--compact", style: "display: block; text-decoration: none; color: inherit;" do %>
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <h3 style="margin: 0;"><%= console.name %></h3>
+    <span class="console-status <%= console.status_css %>"><%= console.status_label %></span>
+  </div>
+  <p class="txt-subtle" style="margin-block-start: var(--space-sm); margin-block-end: 0;">
+    <%= pluralize(console.windows, "window") %> &middot; <%= console.attached_label %> &middot; Created <%= console.created %>
+  </p>
+<% end %>

@@ -9,6 +9,7 @@ require_relative "process_manager"
 
 module Drive
   class Session < Thor
+    def self.exit_on_failure? = true
     namespace :session
 
     desc "create NAME", "Create a new tmux session"
@@ -62,6 +63,7 @@ module Drive
   end
 
   class ProcCmd < Thor
+    def self.exit_on_failure? = true
     namespace :proc
 
     desc "list", "List processes owned by current user"
@@ -184,13 +186,44 @@ module Drive
   end
 
   class Cli < Thor
+    def self.exit_on_failure? = true
+
     desc "session SUBCOMMAND", "Manage tmux sessions"
     subcommand "session", Session
 
     desc "proc SUBCOMMAND", "Manage processes"
     subcommand "proc", ProcCmd
 
-    map "run" => :run_command, "send" => :send_command
+    map "run" => :run_command, "send" => :send_command, "create" => :create_session, "kill" => :kill_session
+
+    desc "create NAME", "Create a new tmux session (shortcut for session create)"
+    option :window, type: :string, desc: "Name for the initial window"
+    option :dir, type: :string, desc: "Working directory"
+    option :detach, type: :boolean, default: false, desc: "Create headless (no Terminal window)"
+    option :json, type: :boolean, default: false, desc: "Output JSON"
+    def create_session(name)
+      Tmux.create_session(name, window_name: options[:window], start_directory: options[:dir], detach: options[:detach])
+      Output.emit(
+        { ok: true, action: "create", session: name, detach: options[:detach] },
+        json: options[:json],
+        human_lines: "Created session: #{name}#{options[:detach] ? ' (detached)' : ''}"
+      )
+    rescue DriveError => e
+      Output.emit_error(e, json: options[:json])
+    end
+
+    desc "kill NAME", "Kill a tmux session (shortcut for session kill)"
+    option :json, type: :boolean, default: false, desc: "Output JSON"
+    def kill_session(name)
+      Tmux.kill_session(name)
+      Output.emit(
+        { ok: true, action: "kill", session: name },
+        json: options[:json],
+        human_lines: "Killed session: #{name}"
+      )
+    rescue DriveError => e
+      Output.emit_error(e, json: options[:json])
+    end
     desc "run SESSION CMD", "Run a command and wait for completion"
     option :timeout, type: :numeric, default: 30, desc: "Max seconds to wait (0 = no limit)"
     option :pane, type: :string, desc: "Target pane index"

@@ -1,0 +1,66 @@
+/*
+ * Minerva Console Styles
+ * Drive monitoring page components
+ */
+
+@layer modules {
+  /* Status pill badge */
+  .console-status {
+    border-radius: var(--radius-full);
+    display: inline-block;
+    font-size: var(--text-x-small);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    padding: var(--space-xs) var(--space-sm);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .console-status--active {
+    background-color: oklch(var(--lch-green-light));
+    color: oklch(var(--lch-green-dark));
+  }
+
+  .console-status--waiting {
+    background-color: oklch(var(--lch-yellow-light));
+    color: oklch(var(--lch-yellow-dark));
+  }
+
+  .console-status--idle {
+    background-color: oklch(var(--lch-blue-light));
+    color: oklch(var(--lch-blue-dark));
+  }
+
+  .console-status--error {
+    background-color: oklch(var(--lch-red-light));
+    color: oklch(var(--lch-red-dark));
+  }
+
+  .console-status--unknown {
+    background-color: oklch(var(--lch-ink-3));
+    color: oklch(var(--lch-ink-6));
+  }
+
+  /* Terminal preview card */
+  .console-terminal {
+    background-color: oklch(18% 0.01 60);
+    border: 1px solid oklch(28% 0.02 60);
+    border-radius: var(--radius-lg);
+    margin-block-start: var(--space-lg);
+    overflow: hidden;
+    padding: var(--space-lg);
+  }
+
+  .console-terminal__output {
+    color: oklch(75% 0.04 145);
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    line-height: var(--line-height-relaxed);
+    margin: 0;
+    max-height: 25rem;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+}

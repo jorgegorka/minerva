@@ -14,7 +14,7 @@ Drive gives you full programmatic control over tmux sessions — creating termin
 ### session — Manage tmux sessions
 
 ```bash
-bin/drive session create agent-1 --json                     # Opens a Terminal window (headed — macOS default)
+bin/drive session create agent-1 --json                      # Opens a Terminal window (headed — macOS default)
 bin/drive session create agent-1 --detach --json             # Headless (no Terminal window)
 bin/drive session create agent-1 --window build --json       # Named window, headed
 bin/drive session create agent-1 --dir /tmp/work --json      # Set working directory

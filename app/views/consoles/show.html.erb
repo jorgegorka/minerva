@@ -1,0 +1,65 @@
+<div class="main-container" data-controller="console-detail-poll" data-console-detail-poll-url-value="<%= console_path(name: @console.name, format: :json) %>" data-console-detail-poll-interval-value="3000">
+  <p><%= link_to "&larr; All Consoles".html_safe, consoles_path, class: "site-nav__link" %></p>
+
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-block-end: var(--space-lg);">
+    <h1 style="margin: 0;"><%= @console.name %></h1>
+    <span class="console-status <%= @console.status_css %>" data-console-detail-poll-target="status"><%= @console.status_label %></span>
+  </div>
+
+  <% if alert %>
+    <div class="alert alert--negative"><%= alert %></div>
+  <% end %>
+
+  <%# Terminal Preview %>
+  <div class="console-terminal">
+    <pre class="console-terminal__output" data-console-detail-poll-target="terminal"><%= h @display_lines %></pre>
+  </div>
+
+  <%# Send Command %>
+  <div class="card card--compact" style="margin-block-start: var(--space-lg);">
+    <%= form_with url: send_keys_console_path(name: @console.name), method: :post, local: true do |f| %>
+      <div style="display: flex; gap: var(--space-sm);">
+        <%= text_field_tag :text, nil, placeholder: "Type a command...", class: "input", style: "flex: 1;", autocomplete: "off" %>
+        <%= submit_tag "Send", class: "btn btn--small" %>
+      </div>
+    <% end %>
+  </div>
+
+  <%# Process Table %>
+  <% if @processes.any? %>
+    <h2>Processes</h2>
+    <div class="card card--compact" style="overflow-x: auto;" data-console-detail-poll-target="processes">
+      <table class="table" style="width: 100%;">
+        <thead>
+          <tr>
+            <th>PID</th>
+            <th>Name</th>
+            <th>CPU%</th>
+            <th>Memory</th>
+            <th>Elapsed</th>
+            <th>State</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @processes.each do |proc| %>
+            <tr>
+              <td><%= proc.pid %></td>
+              <td><%= proc.name %></td>
+              <td><%= proc.cpu %>%</td>
+              <td><%= proc.memory_mb %> MB</td>
+              <td><%= proc.elapsed %></td>
+              <td><%= proc.state %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+
+  <%# Kill Session %>
+  <div style="margin-block-start: var(--space-xl);">
+    <%= link_to "Kill Session", console_path(name: @console.name),
+          data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to kill session '#{@console.name}'?" },
+          class: "btn btn--negative btn--small" %>
+  </div>
+</div>

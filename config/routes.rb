@@ -6,6 +6,12 @@ Rails.application.routes.draw do
   resources :sites
   resources :texts
 
+  resources :consoles, only: [:index, :show, :destroy], param: :name do
+    member do
+      post :send_keys
+    end
+  end
+
   post "mcp/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
