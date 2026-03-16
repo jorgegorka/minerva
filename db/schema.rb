@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_08_093528) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_16_103146) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "vector"
@@ -45,14 +45,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_08_093528) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.bigint "project_id", null: false
     t.string "title"
     t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_categories_on_project_id"
   end
 
   create_table "chats", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "model_id"
+    t.bigint "project_id", null: false
     t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_chats_on_project_id"
   end
 
   create_table "documents", force: :cascade do |t|
@@ -64,12 +68,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_08_093528) do
     t.datetime "embedding_generated_at"
     t.string "embedding_md5"
     t.integer "max_depth"
+    t.bigint "project_id", null: false
     t.string "title"
     t.string "type"
     t.datetime "updated_at", null: false
     t.string "url"
     t.index ["category_id"], name: "index_documents_on_category_id"
     t.index ["embedding"], name: "index_documents_on_embedding", opclass: :vector_cosine_ops, using: :hnsw
+    t.index ["project_id", "url"], name: "index_documents_on_project_id_and_url", unique: true, where: "(url IS NOT NULL)"
+    t.index ["project_id"], name: "index_documents_on_project_id"
     t.index ["type"], name: "index_documents_on_type"
   end
 
@@ -80,11 +87,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_08_093528) do
     t.integer "input_tokens"
     t.string "model_id"
     t.integer "output_tokens"
+    t.bigint "project_id", null: false
     t.string "role"
     t.bigint "tool_call_id"
     t.datetime "updated_at", null: false
     t.index ["chat_id"], name: "index_messages_on_chat_id"
+    t.index ["project_id"], name: "index_messages_on_project_id"
     t.index ["tool_call_id"], name: "index_messages_on_tool_call_id"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_projects_on_name", unique: true
   end
 
   create_table "solid_cable_messages", force: :cascade do |t|
@@ -223,15 +239,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_08_093528) do
     t.datetime "created_at", null: false
     t.bigint "message_id", null: false
     t.string "name", null: false
+    t.bigint "project_id", null: false
     t.string "tool_call_id", null: false
     t.datetime "updated_at", null: false
     t.index ["message_id"], name: "index_tool_calls_on_message_id"
+    t.index ["project_id"], name: "index_tool_calls_on_project_id"
     t.index ["tool_call_id"], name: "index_tool_calls_on_tool_call_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "categories", "projects"
+  add_foreign_key "chats", "projects"
+  add_foreign_key "documents", "projects"
   add_foreign_key "messages", "chats"
+  add_foreign_key "messages", "projects"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
@@ -239,4 +261,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_08_093528) do
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "tool_calls", "messages"
+  add_foreign_key "tool_calls", "projects"
 end
