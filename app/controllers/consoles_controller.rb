@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ConsolesController < ApplicationController
+  skip_before_action :set_current_project
+
   rescue_from Drive::TmuxNotFoundError, with: :handle_tmux_not_found
   rescue_from Drive::SessionNotFoundError, with: :handle_session_not_found
 
