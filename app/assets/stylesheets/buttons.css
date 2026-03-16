@@ -1,6 +1,6 @@
 /*
  * Minerva Button Styles
- * Soft & Organic Design System
+ * Dark Terminal / Cyber Interface Design System
  * Button component with CSS custom property variants
  */
 
@@ -53,7 +53,7 @@
   }
 
   .btn:focus-visible {
-    box-shadow: var(--glow-sage), var(--btn-shadow);
+    box-shadow: var(--glow-cyan), var(--btn-shadow);
     outline: none;
   }
 
@@ -64,19 +64,19 @@
     pointer-events: none;
   }
 
-  /* Primary/Reversed variant - Sage green */
+  /* Primary/Reversed variant - Electric cyan */
   .btn--reversed {
-    --btn-background: oklch(var(--lch-sage-medium));
-    --btn-border-color: oklch(var(--lch-sage-medium));
-    --btn-color: white;
+    --btn-background: oklch(var(--lch-cyan-medium));
+    --btn-border-color: oklch(var(--lch-cyan-medium));
+    --btn-color: oklch(var(--lch-ink-1));
   }
 
   .btn--reversed:hover {
-    --btn-background: oklch(var(--lch-sage-dark));
-    --btn-border-color: oklch(var(--lch-sage-dark));
+    --btn-background: oklch(var(--lch-cyan-dark));
+    --btn-border-color: oklch(var(--lch-cyan-dark));
   }
 
-  /* Negative variant (danger/destructive) - Soft coral */
+  /* Negative variant (danger/destructive) - Hot red */
   .btn--negative {
     --btn-background: oklch(var(--lch-red-medium));
     --btn-border-color: oklch(var(--lch-red-medium));
@@ -88,7 +88,7 @@
     --btn-border-color: oklch(var(--lch-red-dark));
   }
 
-  /* Positive variant (success/confirm) - Soft teal */
+  /* Positive variant (success/confirm) - Neon green */
   .btn--positive {
     --btn-background: oklch(var(--lch-green-medium));
     --btn-border-color: oklch(var(--lch-green-medium));
@@ -125,7 +125,7 @@
   }
 
   .btn--link:hover {
-    --btn-color: oklch(var(--lch-sage-dark));
+    --btn-color: oklch(var(--lch-cyan-dark));
     text-decoration: underline;
     text-decoration-thickness: 1.5px;
     transform: none;

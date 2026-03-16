@@ -1,6 +1,6 @@
 /*
  * Minerva Navigation Styles
- * Floating Botanical Design
+ * Floating Cyber Interface
  * A bold, centered top navigation with frosted glass effect
  */
 
@@ -42,8 +42,8 @@
    * ======================================== */
   .site-nav {
     --nav-height: 4rem;
-    --nav-bg: oklch(var(--lch-ink-2) / 85%);
-    --nav-border: oklch(var(--lch-ink-3) / 50%);
+    --nav-bg: oklch(var(--lch-ink-2) / 90%);
+    --nav-border: oklch(var(--lch-ink-3) / 30%);
     --nav-shadow:
       0 4px 20px oklch(var(--shadow-color) / 8%),
       0 2px 8px oklch(var(--shadow-color) / 5%);
@@ -88,7 +88,7 @@
     background: linear-gradient(
       90deg,
       transparent 0%,
-      oklch(var(--lch-sage-medium) / 40%) 50%,
+      oklch(var(--lch-cyan-medium) / 40%) 50%,
       transparent 100%
     );
     background-size: 200% 100%;
@@ -105,7 +105,7 @@
   }
 
   .site-nav__brand-icon {
-    color: oklch(var(--lch-sage-medium));
+    color: oklch(var(--lch-cyan-medium));
     display: inline-block;
     font-size: 1.2em;
     margin-inline-end: 0.3em;
@@ -130,7 +130,7 @@
 
   .site-nav__link {
     --link-padding: 0.625rem 1.25rem;
-    --underline-color: oklch(var(--lch-sage-medium));
+    --underline-color: oklch(var(--lch-cyan-medium));
     --underline-height: 2px;
 
     border-radius: var(--radius-full);
@@ -171,14 +171,14 @@
   }
 
   .site-nav__link:focus-visible {
-    box-shadow: var(--glow-sage);
+    box-shadow: var(--glow-cyan);
     outline: none;
   }
 
   /* Active state */
   .site-nav__link--active {
-    background: oklch(var(--lch-sage-lightest));
-    color: oklch(var(--lch-sage-dark));
+    background: oklch(var(--lch-cyan-lightest));
+    color: oklch(var(--lch-cyan-dark));
   }
 
   .site-nav__link--active::after {
@@ -234,28 +234,5 @@
     .site-nav__link {
       --link-padding: 0.5rem 0.5rem;
     }
-  }
-
-  /* ========================================
-   * Dark Mode Adjustments
-   * ======================================== */
-  html[data-theme="dark"] .site-nav,
-  @media (prefers-color-scheme: dark) {
-    html:not([data-theme]) .site-nav {
-      --nav-bg: oklch(var(--lch-ink-2) / 90%);
-      --nav-border: oklch(var(--lch-ink-3) / 30%);
-    }
-  }
-
-  @media (prefers-color-scheme: dark) {
-    html:not([data-theme]) .site-nav__link--active {
-      background: oklch(var(--lch-sage-light) / 20%);
-      color: oklch(var(--lch-sage-light));
-    }
-  }
-
-  html[data-theme="dark"] .site-nav__link--active {
-    background: oklch(var(--lch-sage-light) / 20%);
-    color: oklch(var(--lch-sage-light));
   }
 }

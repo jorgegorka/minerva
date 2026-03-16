@@ -1,11 +1,11 @@
 /*
  * Minerva Layout Styles
- * Soft & Organic Design System
+ * Dark Terminal / Cyber Interface Design System
  * Main container and layout components
  */
 
 @layer components {
-  /* Main container - Warm, elevated card */
+  /* Main container - Dark, elevated card */
   .main-container {
     --container-bg: oklch(var(--lch-ink-2));
     --container-radius: var(--radius-xl);
@@ -22,7 +22,7 @@
     position: relative;
   }
 
-  /* Subtle top gradient for depth */
+  /* Subtle cyan top-edge glow for depth */
   .main-container::before {
     content: "";
     position: absolute;
@@ -30,7 +30,7 @@
     border-radius: inherit;
     background: linear-gradient(
       180deg,
-      oklch(100% 0 0 / 4%) 0%,
+      oklch(var(--lch-cyan-medium) / 3%) 0%,
       transparent 50%
     );
     pointer-events: none;

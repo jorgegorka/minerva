@@ -1,6 +1,6 @@
 /*
  * Minerva Global Styles
- * Soft & Organic Design System
+ * Dark Terminal / Cyber Interface Design System
  * CSS layer definitions, color palette, and design tokens
  */
 
@@ -9,61 +9,61 @@
 
 :root {
   /* ========================================
-   * OKLCH Color Palette - Soft & Organic
+   * OKLCH Color Palette - Cyber Interface
    * ======================================== */
 
   /* Neutrals */
   --lch-black: 0% 0 0;
   --lch-white: 100% 0 0;
 
-  /* Warm Ink scale (cream/linen tones - replacing cold blue-grays) */
-  --lch-ink-1: 98% 0.01 85;     /* Warm cream canvas */
-  --lch-ink-2: 95% 0.015 85;    /* Soft linen surface */
-  --lch-ink-3: 90% 0.02 85;     /* Subtle borders */
-  --lch-ink-4: 80% 0.02 75;     /* Muted elements */
-  --lch-ink-5: 60% 0.02 75;     /* Secondary text */
-  --lch-ink-6: 45% 0.02 60;     /* Medium emphasis */
-  --lch-ink-7: 30% 0.025 50;    /* Primary text - warm charcoal */
-  --lch-ink-8: 20% 0.02 50;     /* Darkest */
+  /* Cold Ink scale (navy-black tones - reversed for dark-first) */
+  --lch-ink-1: 12% 0.015 260;    /* Deep navy-black canvas */
+  --lch-ink-2: 16% 0.02 260;     /* Card/surface backgrounds */
+  --lch-ink-3: 22% 0.02 260;     /* Subtle borders */
+  --lch-ink-4: 32% 0.02 260;     /* Muted elements */
+  --lch-ink-5: 50% 0.015 260;    /* Secondary text */
+  --lch-ink-6: 65% 0.01 260;     /* Medium emphasis */
+  --lch-ink-7: 85% 0.01 260;     /* Primary text - cool silver */
+  --lch-ink-8: 95% 0.005 260;    /* Brightest text */
 
-  /* Primary Accent - Sage Green (calming, organic) */
-  --lch-sage-lightest: 95% 0.04 145;
-  --lch-sage-light: 88% 0.06 145;
-  --lch-sage-medium: 65% 0.12 145;
-  --lch-sage-dark: 45% 0.10 145;
+  /* Primary Accent - Electric Cyan (cutting-edge, high-tech) */
+  --lch-cyan-lightest: 25% 0.06 200;
+  --lch-cyan-light: 40% 0.10 200;
+  --lch-cyan-medium: 70% 0.18 200;
+  --lch-cyan-dark: 55% 0.15 200;
 
-  /* Secondary Accent - Dusty Rose (warmth) */
-  --lch-rose-lightest: 94% 0.04 20;
-  --lch-rose-light: 85% 0.08 20;
-  --lch-rose-medium: 65% 0.12 20;
-  --lch-rose-dark: 45% 0.10 20;
+  /* Secondary Accent - Neon Magenta (energy, contrast) */
+  --lch-magenta-lightest: 25% 0.06 330;
+  --lch-magenta-light: 40% 0.10 330;
+  --lch-magenta-medium: 65% 0.20 330;
+  --lch-magenta-dark: 50% 0.16 330;
 
-  /* Tertiary Accent - Soft Lavender */
-  --lch-lavender-lightest: 95% 0.03 290;
-  --lch-lavender-light: 88% 0.06 290;
-  --lch-lavender-medium: 65% 0.10 290;
-  --lch-lavender-dark: 45% 0.08 290;
+  /* Tertiary Accent - Electric Amber */
+  --lch-amber-lightest: 25% 0.05 85;
+  --lch-amber-light: 40% 0.08 85;
+  --lch-amber-medium: 75% 0.16 85;
+  --lch-amber-dark: 55% 0.12 85;
 
-  /* Semantic Colors - Softer, Gentler */
-  /* Success - Soft teal-green */
-  --lch-green-light: 92% 0.05 160;
-  --lch-green-medium: 60% 0.12 160;
-  --lch-green-dark: 40% 0.10 160;
+  /* Semantic Colors - Sharp, Saturated */
+  /* Success - Bright neon green */
+  --lch-green-light: 25% 0.06 155;
+  --lch-green-medium: 70% 0.20 155;
+  --lch-green-dark: 85% 0.15 155;
 
-  /* Error - Muted coral */
-  --lch-red-light: 92% 0.05 25;
-  --lch-red-medium: 60% 0.13 25;
-  --lch-red-dark: 40% 0.10 25;
+  /* Error - Hot red */
+  --lch-red-light: 25% 0.06 25;
+  --lch-red-medium: 60% 0.22 25;
+  --lch-red-dark: 80% 0.14 25;
 
-  /* Warning - Warm amber */
-  --lch-yellow-light: 94% 0.06 85;
-  --lch-yellow-medium: 80% 0.10 85;
-  --lch-yellow-dark: 45% 0.08 85;
+  /* Warning - Bright amber */
+  --lch-yellow-light: 25% 0.05 85;
+  --lch-yellow-medium: 80% 0.16 85;
+  --lch-yellow-dark: 90% 0.10 85;
 
-  /* Info - Soft sky blue */
-  --lch-blue-light: 93% 0.04 240;
-  --lch-blue-medium: 60% 0.10 240;
-  --lch-blue-dark: 40% 0.08 240;
+  /* Info - Bright blue */
+  --lch-blue-light: 25% 0.05 240;
+  --lch-blue-medium: 65% 0.16 240;
+  --lch-blue-dark: 80% 0.10 240;
 
   /* ========================================
    * Semantic Colors
@@ -72,25 +72,25 @@
   --color-ink-light: oklch(var(--lch-ink-5));
   --color-ink-lighter: oklch(var(--lch-ink-4));
   --color-ink-medium: oklch(var(--lch-ink-5));
-  --color-ink-inverted: oklch(var(--lch-white));
+  --color-ink-inverted: oklch(var(--lch-black));
   --color-canvas: oklch(var(--lch-ink-1));
   --color-canvas-alt: oklch(var(--lch-ink-2));
 
-  --color-link: oklch(var(--lch-sage-medium));
+  --color-link: oklch(var(--lch-cyan-medium));
   --color-positive: oklch(var(--lch-green-medium));
   --color-negative: oklch(var(--lch-red-medium));
   --color-highlight: oklch(var(--lch-yellow-medium));
-  --color-selected: oklch(var(--lch-sage-light));
-  --color-selected-dark: oklch(var(--lch-sage-medium));
+  --color-selected: oklch(var(--lch-cyan-light));
+  --color-selected-dark: oklch(var(--lch-cyan-medium));
 
   /* ========================================
    * Typography
    * ======================================== */
-  --font-sans: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+  --font-sans: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
                Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  --font-display: "Nunito", var(--font-sans);
+  --font-display: "Space Mono", var(--font-mono);
   --font-serif: ui-serif, serif;
-  --font-mono: ui-monospace, monospace;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   /* Text scale */
   --text-xx-small: 0.65rem;
@@ -110,6 +110,7 @@
   /* Letter spacing */
   --letter-spacing-tight: -0.01em;
   --letter-spacing-normal: 0.01em;
+  --letter-spacing-wide: 0.08em;
 
   /* ========================================
    * Spacing - More Generous
@@ -136,12 +137,12 @@
   --main-width: 860px;
 
   /* ========================================
-   * Border Radius - More Organic
+   * Border Radius - Sharp Geometry
    * ======================================== */
-  --radius-sm: 0.5rem;
-  --radius-md: 0.875rem;
-  --radius-lg: 1.25rem;
-  --radius-xl: 1.75rem;
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
   --radius-full: 9999px;
 
   /* Legacy tokens (mapped to new scale) */
@@ -149,43 +150,43 @@
   --border-radius-large: var(--radius-xl);
 
   /* ========================================
-   * Borders & Shadows - Warmer, Softer
+   * Borders & Shadows - Cold, Glowing
    * ======================================== */
   --border-color: oklch(var(--lch-ink-3));
 
-  /* Warm shadow color */
-  --shadow-color: 50 0.02 60;
+  /* Cold shadow color */
+  --shadow-color: 20 0.02 260;
 
-  --shadow-xs: 0 1px 2px oklch(var(--shadow-color) / 4%);
+  --shadow-xs: 0 1px 2px oklch(var(--shadow-color) / 8%);
 
   --shadow-sm:
-    0 2px 4px oklch(var(--shadow-color) / 5%),
-    0 1px 2px oklch(var(--shadow-color) / 3%);
+    0 2px 4px oklch(var(--shadow-color) / 10%),
+    0 1px 2px oklch(var(--shadow-color) / 6%);
 
   --shadow-md:
-    0 4px 8px oklch(var(--shadow-color) / 6%),
-    0 2px 4px oklch(var(--shadow-color) / 4%);
+    0 4px 8px oklch(var(--shadow-color) / 12%),
+    0 2px 4px oklch(var(--shadow-color) / 8%);
 
   --shadow-lg:
-    0 8px 16px oklch(var(--shadow-color) / 7%),
-    0 4px 8px oklch(var(--shadow-color) / 5%),
-    0 2px 4px oklch(var(--shadow-color) / 3%);
+    0 8px 16px oklch(var(--shadow-color) / 14%),
+    0 4px 8px oklch(var(--shadow-color) / 10%),
+    0 2px 4px oklch(var(--shadow-color) / 6%);
 
   --shadow-xl:
-    0 16px 32px oklch(var(--shadow-color) / 8%),
-    0 8px 16px oklch(var(--shadow-color) / 5%);
+    0 16px 32px oklch(var(--shadow-color) / 16%),
+    0 8px 16px oklch(var(--shadow-color) / 10%);
 
   /* Legacy shadow tokens */
   --shadow: var(--shadow-lg);
   --shadow-light: var(--shadow-sm);
 
-  /* Focus glow - sage tinted */
-  --glow-sage: 0 0 0 4px oklch(var(--lch-sage-light) / 50%);
+  /* Focus glow - cyan tinted */
+  --glow-cyan: 0 0 0 4px oklch(var(--lch-cyan-light) / 50%);
 
   /* ========================================
    * Focus States
    * ======================================== */
-  --focus-ring-color: oklch(var(--lch-sage-medium));
+  --focus-ring-color: oklch(var(--lch-cyan-medium));
   --focus-ring-size: 2px;
   --focus-ring-offset: 2px;
   --focus-ring: var(--focus-ring-size) solid var(--focus-ring-color);
@@ -212,60 +213,76 @@
 }
 
 /* ========================================
- * Dark Mode - Warm Dark Tones
+ * Light Mode - Inverted for light preference
  * ======================================== */
 
-/* User-selected dark theme */
-html[data-theme="dark"] {
-  /* Warm dark neutrals (not cold blacks) */
-  --lch-ink-1: 18% 0.01 60;     /* Deep warm background */
-  --lch-ink-2: 22% 0.015 60;    /* Card backgrounds */
-  --lch-ink-3: 28% 0.02 60;     /* Borders */
-  --lch-ink-4: 40% 0.02 60;     /* Muted elements */
-  --lch-ink-5: 55% 0.015 60;    /* Secondary text */
-  --lch-ink-6: 70% 0.01 70;     /* Medium text */
-  --lch-ink-7: 88% 0.01 80;     /* Primary text - warm cream */
-  --lch-ink-8: 94% 0.01 80;     /* Brightest text */
+/* User-selected light theme */
+html[data-theme="light"] {
+  --lch-ink-1: 98% 0.01 260;     /* Bright canvas */
+  --lch-ink-2: 95% 0.01 260;     /* Surface */
+  --lch-ink-3: 88% 0.015 260;    /* Borders */
+  --lch-ink-4: 75% 0.015 260;    /* Muted elements */
+  --lch-ink-5: 55% 0.015 260;    /* Secondary text */
+  --lch-ink-6: 40% 0.02 260;     /* Medium text */
+  --lch-ink-7: 25% 0.025 260;    /* Primary text */
+  --lch-ink-8: 15% 0.02 260;     /* Darkest */
 
-  /* Adjusted accent colors for dark mode */
-  --lch-sage-lightest: 25% 0.04 145;
-  --lch-sage-light: 35% 0.06 145;
+  /* Light mode accent adjustments */
+  --lch-cyan-lightest: 92% 0.04 200;
+  --lch-cyan-light: 85% 0.08 200;
 
-  --lch-rose-lightest: 25% 0.04 20;
-  --lch-rose-light: 35% 0.06 20;
+  --lch-magenta-lightest: 92% 0.04 330;
+  --lch-magenta-light: 85% 0.08 330;
 
-  --lch-lavender-lightest: 25% 0.03 290;
-  --lch-lavender-light: 35% 0.05 290;
+  --lch-amber-lightest: 93% 0.04 85;
+  --lch-amber-light: 86% 0.07 85;
 
-  /* Semantic overrides for dark mode */
-  --color-ink-inverted: oklch(var(--lch-black));
+  /* Light mode semantics */
+  --lch-green-light: 92% 0.05 155;
+  --lch-green-dark: 35% 0.12 155;
+  --lch-red-light: 92% 0.05 25;
+  --lch-red-dark: 35% 0.12 25;
+  --lch-yellow-light: 94% 0.06 85;
+  --lch-yellow-dark: 40% 0.08 85;
+  --lch-blue-light: 92% 0.04 240;
+  --lch-blue-dark: 35% 0.10 240;
 
-  /* Darker shadow color */
-  --shadow-color: 20 0.02 60;
+  --color-ink-inverted: oklch(var(--lch-white));
+  --shadow-color: 50 0.02 260;
 }
 
 /* System preference fallback */
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   html:not([data-theme]) {
-    /* Warm dark neutrals */
-    --lch-ink-1: 18% 0.01 60;
-    --lch-ink-2: 22% 0.015 60;
-    --lch-ink-3: 28% 0.02 60;
-    --lch-ink-4: 40% 0.02 60;
-    --lch-ink-5: 55% 0.015 60;
-    --lch-ink-6: 70% 0.01 70;
-    --lch-ink-7: 88% 0.01 80;
-    --lch-ink-8: 94% 0.01 80;
+    --lch-ink-1: 98% 0.01 260;
+    --lch-ink-2: 95% 0.01 260;
+    --lch-ink-3: 88% 0.015 260;
+    --lch-ink-4: 75% 0.015 260;
+    --lch-ink-5: 55% 0.015 260;
+    --lch-ink-6: 40% 0.02 260;
+    --lch-ink-7: 25% 0.025 260;
+    --lch-ink-8: 15% 0.02 260;
 
-    /* Adjusted accents */
-    --lch-sage-lightest: 25% 0.04 145;
-    --lch-sage-light: 35% 0.06 145;
+    --lch-cyan-lightest: 92% 0.04 200;
+    --lch-cyan-light: 85% 0.08 200;
 
-    --lch-rose-lightest: 25% 0.04 20;
-    --lch-rose-light: 35% 0.06 20;
+    --lch-magenta-lightest: 92% 0.04 330;
+    --lch-magenta-light: 85% 0.08 330;
 
-    --color-ink-inverted: oklch(var(--lch-black));
-    --shadow-color: 20 0.02 60;
+    --lch-amber-lightest: 93% 0.04 85;
+    --lch-amber-light: 86% 0.07 85;
+
+    --lch-green-light: 92% 0.05 155;
+    --lch-green-dark: 35% 0.12 155;
+    --lch-red-light: 92% 0.05 25;
+    --lch-red-dark: 35% 0.12 25;
+    --lch-yellow-light: 94% 0.06 85;
+    --lch-yellow-dark: 40% 0.08 85;
+    --lch-blue-light: 92% 0.04 240;
+    --lch-blue-dark: 35% 0.10 240;
+
+    --color-ink-inverted: oklch(var(--lch-white));
+    --shadow-color: 50 0.02 260;
   }
 }
 

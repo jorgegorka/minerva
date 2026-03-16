@@ -1,6 +1,6 @@
 /*
  * Minerva Card Styles
- * Soft & Organic Design System
+ * Dark Terminal / Cyber Interface Design System
  * Card container component
  */
 
@@ -72,32 +72,32 @@
 
   /* Elevated variant (more prominent) */
   .card--elevated {
-    --card-bg: white;
+    --card-bg: oklch(var(--lch-ink-3));
     --card-shadow: var(--shadow-lg);
   }
 
-  /* Accent border on left side - Sage */
+  /* Accent border on left side - Cyan */
   .card--accent {
-    --card-accent: oklch(var(--lch-sage-medium));
+    --card-accent: oklch(var(--lch-cyan-medium));
     border-inline-start: 4px solid var(--card-accent);
     border-start-start-radius: var(--radius-sm);
     border-end-start-radius: var(--radius-sm);
   }
 
   /* Colored card variants */
-  .card--sage {
-    --card-bg: oklch(var(--lch-sage-lightest));
-    --card-border: oklch(var(--lch-sage-light));
+  .card--cyan {
+    --card-bg: oklch(var(--lch-cyan-lightest));
+    --card-border: oklch(var(--lch-cyan-light));
   }
 
-  .card--rose {
-    --card-bg: oklch(var(--lch-rose-lightest));
-    --card-border: oklch(var(--lch-rose-light));
+  .card--magenta {
+    --card-bg: oklch(var(--lch-magenta-lightest));
+    --card-border: oklch(var(--lch-magenta-light));
   }
 
-  .card--lavender {
-    --card-bg: oklch(var(--lch-lavender-lightest));
-    --card-border: oklch(var(--lch-lavender-light));
+  .card--amber {
+    --card-bg: oklch(var(--lch-amber-lightest));
+    --card-border: oklch(var(--lch-amber-light));
   }
 
   /* Compact variant */

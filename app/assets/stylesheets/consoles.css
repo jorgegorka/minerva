@@ -1,5 +1,6 @@
 /*
  * Minerva Console Styles
+ * Dark Terminal / Cyber Interface
  * Drive monitoring page components
  */
 
@@ -19,6 +20,7 @@
 
   .console-status--active {
     background-color: oklch(var(--lch-green-light));
+    box-shadow: 0 0 8px oklch(var(--lch-green-medium) / 40%);
     color: oklch(var(--lch-green-dark));
   }
 
@@ -44,23 +46,42 @@
 
   /* Terminal preview card */
   .console-terminal {
-    background-color: oklch(18% 0.01 60);
-    border: 1px solid oklch(28% 0.02 60);
+    background-color: oklch(8% 0.015 260);
+    border: 1px solid oklch(var(--lch-cyan-medium) / 25%);
     border-radius: var(--radius-lg);
     margin-block-start: var(--space-lg);
     overflow: hidden;
     padding: var(--space-lg);
+    position: relative;
+  }
+
+  /* Scan-line overlay effect */
+  .console-terminal::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      oklch(0% 0 0 / 3%) 2px,
+      oklch(0% 0 0 / 3%) 4px
+    );
+    pointer-events: none;
+    border-radius: inherit;
   }
 
   .console-terminal__output {
-    color: oklch(75% 0.04 145);
+    color: oklch(80% 0.14 150);
     font-family: var(--font-mono);
     font-size: var(--text-small);
     line-height: var(--line-height-relaxed);
     margin: 0;
     max-height: 25rem;
     overflow-y: auto;
+    position: relative;
     white-space: pre-wrap;
     word-break: break-all;
+    z-index: 1;
   }
 }
