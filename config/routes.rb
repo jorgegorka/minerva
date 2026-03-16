@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   mount MissionControl::Jobs::Engine, at: "/jobs"
 
+  resources :projects, only: [:index, :new, :create] do
+    member do
+      post :switch
+    end
+  end
+
   resources :assets, path: "asset-management"
   resources :categories, except: [ :show ]
   resources :sites
