@@ -41,14 +41,14 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "new is accessible when no projects exist" do
-    [ToolCall, Message, Chat, Document, Category].each { |m| m.unscoped.delete_all }
+    [ ToolCall, Message, Chat, Document, Category ].each { |m| m.unscoped.delete_all }
     Project.unscoped.delete_all
     get new_project_url
     assert_response :success
   end
 
   test "create is accessible when no projects exist" do
-    [ToolCall, Message, Chat, Document, Category].each { |m| m.unscoped.delete_all }
+    [ ToolCall, Message, Chat, Document, Category ].each { |m| m.unscoped.delete_all }
     Project.unscoped.delete_all
     assert_difference("Project.count") do
       post projects_url, params: { project: { name: "First Project" } }

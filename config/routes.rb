@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount MissionControl::Jobs::Engine, at: "/jobs"
 
-  resources :projects, only: [:index, :new, :create] do
+  resources :projects, only: [ :index, :new, :create ] do
     member do
       post :switch
     end
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :sites
   resources :texts
 
-  resources :consoles, only: [:index, :show, :destroy], param: :name do
+  resources :consoles, only: [ :index, :show, :destroy ], param: :name do
     member do
       post :send_keys
     end

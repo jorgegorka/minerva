@@ -32,7 +32,7 @@ class AddMultiProjectScoping < ActiveRecord::Migration[8.1]
     change_column_null :tool_calls, :project_id, false
 
     # 5. Replace url unique indexes with compound (project_id, url) indexes
-    add_index :documents, [:project_id, :url], unique: true, where: "url IS NOT NULL", name: "index_documents_on_project_id_and_url"
+    add_index :documents, [ :project_id, :url ], unique: true, where: "url IS NOT NULL", name: "index_documents_on_project_id_and_url"
   end
 
   def down

@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  skip_before_action :set_current_project, only: [:new, :create]
+  skip_before_action :set_current_project, only: [ :new, :create ]
 
   def index
     @projects = Project.unscoped.order(:name)

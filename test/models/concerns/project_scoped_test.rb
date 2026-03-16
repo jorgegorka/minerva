@@ -16,7 +16,7 @@ class ProjectScopedTest < ActiveSupport::TestCase
     Category.create!(title: "Scoped B", project: @project_b)
 
     assert_includes Category.all, category_a
-    assert_equal 1, Category.where(title: ["Scoped A", "Scoped B"]).count
+    assert_equal 1, Category.where(title: [ "Scoped A", "Scoped B" ]).count
   end
 
   test "returns all records when Current.project is nil" do
