@@ -1,0 +1,22 @@
+<% if Current.project %>
+  <li class="site-nav__item">
+    <details class="site-nav__dropdown">
+      <summary class="site-nav__link site-nav__dropdown-toggle">
+        <%= Current.project.name %>
+      </summary>
+      <ul class="site-nav__dropdown-menu">
+        <% Project.unscoped.order(:name).each do |project| %>
+          <li>
+            <% if project == Current.project %>
+              <span class="site-nav__dropdown-item site-nav__dropdown-item--active"><%= project.name %></span>
+            <% else %>
+              <%= button_to project.name, switch_project_path(project), method: :post, class: "site-nav__dropdown-item" %>
+            <% end %>
+          </li>
+        <% end %>
+        <li class="site-nav__dropdown-divider"></li>
+        <li><%= link_to "New Project", new_project_path, class: "site-nav__dropdown-item" %></li>
+      </ul>
+    </details>
+  </li>
+<% end %>

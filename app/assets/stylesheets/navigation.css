@@ -235,4 +235,77 @@
       --link-padding: 0.5rem 0.5rem;
     }
   }
+
+  /* ========================================
+   * Project Switcher Dropdown
+   * ======================================== */
+  .site-nav__dropdown {
+    position: relative;
+  }
+
+  .site-nav__dropdown-toggle {
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+
+  .site-nav__dropdown-toggle::-webkit-details-marker,
+  .site-nav__dropdown-toggle::marker {
+    display: none;
+  }
+
+  .site-nav__dropdown-toggle::after {
+    content: " \25BE";
+    font-size: 0.8em;
+  }
+
+  .site-nav__dropdown-menu {
+    background: var(--nav-bg);
+    backdrop-filter: blur(12px) saturate(1.2);
+    border: 1px solid var(--nav-border);
+    border-radius: var(--radius-md, 0.5rem);
+    box-shadow: var(--nav-shadow);
+    list-style: none;
+    margin: 0;
+    min-inline-size: 12rem;
+    padding: var(--space-xs, 0.25rem) 0;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: calc(var(--z-bar) + 1);
+  }
+
+  .site-nav__dropdown-item {
+    all: unset;
+    color: var(--color-ink-light);
+    cursor: pointer;
+    display: block;
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    padding: var(--space-xs, 0.25rem) var(--space-md, 1rem);
+    transition: var(--transition-normal);
+    transition-property: color, background-color;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .site-nav__dropdown-item:hover {
+    background: oklch(var(--lch-sage-lightest));
+    color: var(--color-ink);
+  }
+
+  .site-nav__dropdown-item--active {
+    color: oklch(var(--lch-sage-dark));
+    font-weight: 600;
+  }
+
+  .site-nav__dropdown-divider {
+    border-top: 1px solid var(--nav-border);
+    margin: var(--space-xs, 0.25rem) 0;
+  }
+
+  /* button_to generates a form wrapper — style it inline */
+  .site-nav__dropdown-menu form {
+    display: contents;
+  }
 }
