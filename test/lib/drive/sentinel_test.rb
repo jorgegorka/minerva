@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "minitest/autorun"
+require "securerandom"
 require_relative "../../../lib/drive/sentinel"
 
 class Drive::SentinelTest < Minitest::Test
@@ -64,31 +65,29 @@ class Drive::SentinelTest < Minitest::Test
 end
 
 class Drive::SentinelIntegrationTest < Minitest::Test
-  SESSION_NAME = "drive_sentinel_test_#{$$}"
-
   def setup
-    system("tmux kill-session -t #{SESSION_NAME} 2>/dev/null")
-    Drive::Tmux.create_session(SESSION_NAME, detach: true)
+    @session = "drive_sentinel_#{$$}_#{SecureRandom.hex(4)}"
+    Drive::Tmux.create_session(@session, detach: true)
   end
 
   def teardown
-    system("tmux kill-session -t #{SESSION_NAME} 2>/dev/null")
+    system("tmux kill-session -t #{@session} 2>/dev/null")
   end
 
   def test_run_and_wait_success
-    exit_code, output = Drive::Sentinel.run_and_wait(SESSION_NAME, "echo hello_sentinel", timeout: 10.0)
+    exit_code, output = Drive::Sentinel.run_and_wait(@session, "echo hello_sentinel", timeout: 10.0)
     assert_equal 0, exit_code
     assert_match(/hello_sentinel/, output)
   end
 
   def test_run_and_wait_nonzero_exit
-    exit_code, _output = Drive::Sentinel.run_and_wait(SESSION_NAME, "bash -c 'exit 42'", timeout: 10.0)
+    exit_code, _output = Drive::Sentinel.run_and_wait(@session, "bash -c 'exit 42'", timeout: 10.0)
     assert_equal 42, exit_code
   end
 
   def test_run_and_wait_timeout
     assert_raises(Drive::CommandTimeoutError) do
-      Drive::Sentinel.run_and_wait(SESSION_NAME, "sleep 60", timeout: 2.0)
+      Drive::Sentinel.run_and_wait(@session, "sleep 60", timeout: 2.0)
     end
   end
 end
