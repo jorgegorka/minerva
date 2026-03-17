@@ -1,3 +1,3 @@
 class WebPage < Document
-  validates :url, uniqueness: true, allow_nil: true
+  validates :url, uniqueness: { scope: :project_id }, allow_nil: true
 end

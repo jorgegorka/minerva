@@ -1,13 +1,13 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 # Base document fixtures for existing tests
 one:
   title: MyString
   content: MyText
+  project: default
 
 two:
   title: MyString
   content: MyText
+  project: default
 
 # Asset fixtures
 asset_one:
@@ -15,12 +15,14 @@ asset_one:
   title: Sample Asset
   content: This is sample asset content
   category: development
+  project: default
 
 asset_two:
   type: Asset
   title: Another Asset
   content: Another asset content
   category: design
+  project: default
 
 # Text fixtures
 text_one:
@@ -28,12 +30,14 @@ text_one:
   title: Sample Text
   content: This is sample text content
   category: development
+  project: default
 
 text_two:
   type: Text
   title: Another Text
   content: Another text content
   category: documentation
+  project: default
 
 # Site fixtures
 site_one:
@@ -42,6 +46,7 @@ site_one:
   url: https://example.com
   max_depth: 2
   category: development
+  project: default
 
 site_two:
   type: Site
@@ -49,8 +54,10 @@ site_two:
   url: https://another-example.com
   max_depth: 3
   category: documentation
+  project: default
 
 # Plain document for general tests
 plain_document:
   title: Plain Document
   content: Plain document content
+  project: default

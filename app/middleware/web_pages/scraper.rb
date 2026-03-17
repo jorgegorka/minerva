@@ -4,8 +4,9 @@ require "readability"
 
 module WebPages
   class Scraper
-    def initialize(url)
+    def initialize(url, project_id:)
       @url = url
+      @project_id = project_id
     end
 
     def scrape
@@ -25,7 +26,8 @@ module WebPages
       WebPage.create!(
         url:,
         title:,
-        content: cleaned_content
+        content: cleaned_content,
+        project_id: project_id
       )
     rescue => e
       Rails.logger.error("Failed to scrape #{url}: #{e.message}")
@@ -34,6 +36,6 @@ module WebPages
 
     private
 
-    attr_reader :url
+    attr_reader :url, :project_id
   end
 end

@@ -1,9 +1,11 @@
 class Document < ApplicationRecord
   include Embeddable
+  include ProjectScoped
 
   belongs_to :category, optional: true
 
   validates :title, presence: true
+  validate :category_belongs_to_same_project, if: -> { category_id.present? }
 
   has_one_attached :file
 
@@ -51,5 +53,11 @@ class Document < ApplicationRecord
       size_changed = (current_file_size != @previous_file_size)
 
       filename_changed || size_changed
+    end
+
+    def category_belongs_to_same_project
+      if category && category.project_id != project_id
+        errors.add(:category, "must belong to the same project")
+      end
     end
 end

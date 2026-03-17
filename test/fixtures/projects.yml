@@ -1,0 +1,5 @@
+default:
+  name: "Test Project"
+
+other:
+  name: "Other Project"

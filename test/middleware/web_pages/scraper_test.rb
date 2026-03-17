@@ -3,7 +3,7 @@ require "test_helper"
 class ScraperTest < ActiveSupport::TestCase
   setup do
     @url = "https://example.com/test-page"
-    @scraper = WebPages::Scraper.new(@url)
+    @scraper = WebPages::Scraper.new(@url, project_id: projects(:default).id)
   end
 
   teardown do
@@ -23,7 +23,8 @@ class ScraperTest < ActiveSupport::TestCase
     web_page = WebPage.create!(
       url: @url,
       title: "Test Title",
-      content: "Test content"
+      content: "Test content",
+      project: projects(:default)
     )
 
     assert_equal @url, web_page.url
@@ -36,7 +37,8 @@ class ScraperTest < ActiveSupport::TestCase
     WebPage.create!(
       url: @url,
       title: "First Title",
-      content: "First content"
+      content: "First content",
+      project: projects(:default)
     )
 
     # Second web_page with same URL should fail
@@ -54,7 +56,8 @@ class ScraperTest < ActiveSupport::TestCase
     # Should be able to create web_pages without URL (existing functionality)
     web_page = WebPage.create!(
       title: "No URL Title",
-      content: "Content without URL"
+      content: "Content without URL",
+      project: projects(:default)
     )
 
     assert_nil web_page.url
@@ -64,8 +67,8 @@ class ScraperTest < ActiveSupport::TestCase
   test "multiple web_pages with nil URLs are allowed" do
     WebPage.destroy_all  # Ensure clean slate
 
-    doc1 = WebPage.create!(title: "Title 1", content: "Content 1")
-    doc2 = WebPage.create!(title: "Title 2", content: "Content 2")
+    doc1 = WebPage.create!(title: "Title 1", content: "Content 1", project: projects(:default))
+    doc2 = WebPage.create!(title: "Title 2", content: "Content 2", project: projects(:default))
 
     assert_nil doc1.url
     assert_nil doc2.url

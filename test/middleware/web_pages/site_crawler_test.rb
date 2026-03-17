@@ -3,7 +3,7 @@ require "test_helper"
 class SiteCrawlerTest < ActiveSupport::TestCase
   setup do
     @start_url = "https://example.com"
-    @crawler = WebPages::SiteCrawler.new(@start_url, max_depth: 2)
+    @crawler = WebPages::SiteCrawler.new(@start_url, max_depth: 2, project_id: projects(:default).id)
   end
 
   teardown do
@@ -11,7 +11,7 @@ class SiteCrawlerTest < ActiveSupport::TestCase
   end
 
   test "initializes with correct defaults" do
-    default_crawler = WebPages::SiteCrawler.new(@start_url)
+    default_crawler = WebPages::SiteCrawler.new(@start_url, project_id: projects(:default).id)
 
     assert_equal @start_url, default_crawler.instance_variable_get(:@start_url)
     assert_equal "example.com", default_crawler.instance_variable_get(:@domain)
@@ -21,7 +21,7 @@ class SiteCrawlerTest < ActiveSupport::TestCase
   end
 
   test "initializes with custom max_depth" do
-    custom_crawler = WebPages::SiteCrawler.new(@start_url, max_depth: 5)
+    custom_crawler = WebPages::SiteCrawler.new(@start_url, max_depth: 5, project_id: projects(:default).id)
     assert_equal 5, custom_crawler.instance_variable_get(:@max_depth)
   end
 
@@ -34,7 +34,7 @@ class SiteCrawlerTest < ActiveSupport::TestCase
     }
 
     test_cases.each do |url, expected_domain|
-      crawler = WebPages::SiteCrawler.new(url)
+      crawler = WebPages::SiteCrawler.new(url, project_id: projects(:default).id)
       assert_equal expected_domain, crawler.instance_variable_get(:@domain)
     end
   end
@@ -168,7 +168,7 @@ class SiteCrawlerTest < ActiveSupport::TestCase
     ]
 
     test_urls.each do |start_url|
-      crawler = WebPages::SiteCrawler.new(start_url, max_depth: 1)
+      crawler = WebPages::SiteCrawler.new(start_url, max_depth: 1, project_id: projects(:default).id)
 
       html_content = '<a href="/test">Test Link</a>'
       doc = Nokogiri::HTML(html_content)

@@ -1,10 +1,22 @@
 Rails.application.routes.draw do
   mount MissionControl::Jobs::Engine, at: "/jobs"
 
+  resources :projects, only: [ :index, :new, :create ] do
+    member do
+      post :switch
+    end
+  end
+
   resources :assets, path: "asset-management"
   resources :categories, except: [ :show ]
   resources :sites
   resources :texts
+
+  resources :consoles, only: [ :index, :show, :destroy ], param: :name do
+    member do
+      post :send_keys
+    end
+  end
 
   post "mcp/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

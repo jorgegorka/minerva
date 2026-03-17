@@ -1,9 +1,10 @@
 module WebPages
   class SiteCrawler
-    def initialize(start_url, max_depth: 2)
+    def initialize(start_url, max_depth: 2, project_id:)
       @start_url = start_url
       @domain = URI.parse(start_url).host
       @max_depth = max_depth
+      @project_id = project_id
       @visited = Set.new
     end
 
@@ -15,7 +16,7 @@ module WebPages
       doc = Nokogiri::HTML(HTTParty.get(url).body)
       return unless doc
 
-      PageScraperJob.perform_later(url)
+      PageScraperJob.perform_later(url, project_id)
 
       internal_links(doc).each do |link|
         crawl(link, depth + 1)
@@ -25,7 +26,7 @@ module WebPages
 
     private
 
-    attr_reader :visited, :start_url, :domain, :max_depth
+    attr_reader :visited, :start_url, :domain, :max_depth, :project_id
 
     def internal_links(doc)
       doc.css("a[href]").map { |a| a["href"] }

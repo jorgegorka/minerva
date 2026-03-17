@@ -1,6 +1,6 @@
 /*
  * Minerva Utility Classes
- * Soft & Organic Design System
+ * Dark Terminal / Cyber Interface Design System
  * Single-purpose utility classes for layout and styling
  */
 
@@ -114,10 +114,10 @@
   .txt-positive { color: var(--color-positive); }
   .txt-link { color: var(--color-link); }
 
-  /* Organic accent colors */
-  .txt-sage { color: oklch(var(--lch-sage-medium)); }
-  .txt-rose { color: oklch(var(--lch-rose-medium)); }
-  .txt-lavender { color: oklch(var(--lch-lavender-medium)); }
+  /* Cyber accent colors */
+  .txt-cyan { color: oklch(var(--lch-cyan-medium)); }
+  .txt-magenta { color: oklch(var(--lch-magenta-medium)); }
+  .txt-amber { color: oklch(var(--lch-amber-medium)); }
 
   .txt-center { text-align: center; }
   .txt-start { text-align: start; }
@@ -145,16 +145,16 @@
   .txt-pre-wrap { white-space: pre-wrap; }
 
   /* ========================================
-   * Backgrounds - Organic Colors
+   * Backgrounds - Cyber Colors
    * ======================================== */
   .bg-canvas { background-color: oklch(var(--lch-ink-1)); }
   .bg-surface { background-color: oklch(var(--lch-ink-2)); }
   .bg-subtle { background-color: oklch(var(--lch-ink-3)); }
-  .bg-white { background-color: white; }
+  .bg-surface-bright { background-color: oklch(var(--lch-ink-3)); }
 
-  .bg-sage { background-color: oklch(var(--lch-sage-lightest)); }
-  .bg-rose { background-color: oklch(var(--lch-rose-lightest)); }
-  .bg-lavender { background-color: oklch(var(--lch-lavender-lightest)); }
+  .bg-cyan { background-color: oklch(var(--lch-cyan-lightest)); }
+  .bg-magenta { background-color: oklch(var(--lch-magenta-lightest)); }
+  .bg-amber { background-color: oklch(var(--lch-amber-lightest)); }
 
   .bg-positive { background-color: oklch(var(--lch-green-light)); }
   .bg-negative { background-color: oklch(var(--lch-red-light)); }
@@ -162,7 +162,7 @@
   .bg-info { background-color: oklch(var(--lch-blue-light)); }
 
   /* ========================================
-   * Border Radius - Organic Corners
+   * Border Radius - Sharp Corners
    * ======================================== */
   .rounded-none { border-radius: 0; }
   .rounded-sm { border-radius: var(--radius-sm); }
@@ -230,7 +230,7 @@
   }
 
   /* ========================================
-   * Shadows - Soft Organic Shadows
+   * Shadows - Cold Cyber Shadows
    * ======================================== */
   .shadow-none { box-shadow: none; }
   .shadow-xs { box-shadow: var(--shadow-xs); }
@@ -242,7 +242,7 @@
   .shadow-light { box-shadow: var(--shadow-sm); }
 
   /* Focus glow */
-  .glow-sage { box-shadow: var(--glow-sage); }
+  .glow-cyan { box-shadow: var(--glow-cyan); }
 
   /* ========================================
    * Positioning

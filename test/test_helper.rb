@@ -10,6 +10,13 @@ module ActiveSupport
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
 
-    # Add more helper methods to be used by all tests here...
+    setup do
+      @project = projects(:default)
+      Current.project = @project
+    end
+
+    teardown do
+      Current.project = nil
+    end
   end
 end

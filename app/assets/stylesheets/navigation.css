@@ -1,6 +1,6 @@
 /*
  * Minerva Navigation Styles
- * Floating Botanical Design
+ * Floating Cyber Interface
  * A bold, centered top navigation with frosted glass effect
  */
 
@@ -42,8 +42,8 @@
    * ======================================== */
   .site-nav {
     --nav-height: 4rem;
-    --nav-bg: oklch(var(--lch-ink-2) / 85%);
-    --nav-border: oklch(var(--lch-ink-3) / 50%);
+    --nav-bg: oklch(var(--lch-ink-2) / 90%);
+    --nav-border: oklch(var(--lch-ink-3) / 30%);
     --nav-shadow:
       0 4px 20px oklch(var(--shadow-color) / 8%),
       0 2px 8px oklch(var(--shadow-color) / 5%);
@@ -88,7 +88,7 @@
     background: linear-gradient(
       90deg,
       transparent 0%,
-      oklch(var(--lch-sage-medium) / 40%) 50%,
+      oklch(var(--lch-cyan-medium) / 40%) 50%,
       transparent 100%
     );
     background-size: 200% 100%;
@@ -105,7 +105,7 @@
   }
 
   .site-nav__brand-icon {
-    color: oklch(var(--lch-sage-medium));
+    color: oklch(var(--lch-cyan-medium));
     display: inline-block;
     font-size: 1.2em;
     margin-inline-end: 0.3em;
@@ -130,7 +130,7 @@
 
   .site-nav__link {
     --link-padding: 0.625rem 1.25rem;
-    --underline-color: oklch(var(--lch-sage-medium));
+    --underline-color: oklch(var(--lch-cyan-medium));
     --underline-height: 2px;
 
     border-radius: var(--radius-full);
@@ -171,14 +171,14 @@
   }
 
   .site-nav__link:focus-visible {
-    box-shadow: var(--glow-sage);
+    box-shadow: var(--glow-cyan);
     outline: none;
   }
 
   /* Active state */
   .site-nav__link--active {
-    background: oklch(var(--lch-sage-lightest));
-    color: oklch(var(--lch-sage-dark));
+    background: oklch(var(--lch-cyan-lightest));
+    color: oklch(var(--lch-cyan-dark));
   }
 
   .site-nav__link--active::after {
@@ -237,25 +237,75 @@
   }
 
   /* ========================================
-   * Dark Mode Adjustments
+   * Project Switcher Dropdown
    * ======================================== */
-  html[data-theme="dark"] .site-nav,
-  @media (prefers-color-scheme: dark) {
-    html:not([data-theme]) .site-nav {
-      --nav-bg: oklch(var(--lch-ink-2) / 90%);
-      --nav-border: oklch(var(--lch-ink-3) / 30%);
-    }
+  .site-nav__dropdown {
+    position: relative;
   }
 
-  @media (prefers-color-scheme: dark) {
-    html:not([data-theme]) .site-nav__link--active {
-      background: oklch(var(--lch-sage-light) / 20%);
-      color: oklch(var(--lch-sage-light));
-    }
+  .site-nav__dropdown-toggle {
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
   }
 
-  html[data-theme="dark"] .site-nav__link--active {
-    background: oklch(var(--lch-sage-light) / 20%);
-    color: oklch(var(--lch-sage-light));
+  .site-nav__dropdown-toggle::-webkit-details-marker,
+  .site-nav__dropdown-toggle::marker {
+    display: none;
+  }
+
+  .site-nav__dropdown-toggle::after {
+    content: " \25BE";
+    font-size: 0.8em;
+  }
+
+  .site-nav__dropdown-menu {
+    background: var(--nav-bg);
+    backdrop-filter: blur(12px) saturate(1.2);
+    border: 1px solid var(--nav-border);
+    border-radius: var(--radius-md, 0.5rem);
+    box-shadow: var(--nav-shadow);
+    list-style: none;
+    margin: 0;
+    min-inline-size: 12rem;
+    padding: var(--space-xs, 0.25rem) 0;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: calc(var(--z-bar) + 1);
+  }
+
+  .site-nav__dropdown-item {
+    all: unset;
+    color: var(--color-ink-light);
+    cursor: pointer;
+    display: block;
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    padding: var(--space-xs, 0.25rem) var(--space-md, 1rem);
+    transition: var(--transition-normal);
+    transition-property: color, background-color;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .site-nav__dropdown-item:hover {
+    background: oklch(var(--lch-sage-lightest));
+    color: var(--color-ink);
+  }
+
+  .site-nav__dropdown-item--active {
+    color: oklch(var(--lch-sage-dark));
+    font-weight: 600;
+  }
+
+  .site-nav__dropdown-divider {
+    border-top: 1px solid var(--nav-border);
+    margin: var(--space-xs, 0.25rem) 0;
+  }
+
+  /* button_to generates a form wrapper — style it inline */
+  .site-nav__dropdown-menu form {
+    display: contents;
   }
 }

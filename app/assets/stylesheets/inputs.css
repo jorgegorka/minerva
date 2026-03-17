@@ -1,18 +1,18 @@
 /*
  * Minerva Input Styles
- * Soft & Organic Design System
+ * Dark Terminal / Cyber Interface Design System
  * Form input components
  */
 
 @layer components {
   .input {
     /* Configurable properties */
-    --input-accent-color: oklch(var(--lch-sage-medium));
+    --input-accent-color: oklch(var(--lch-cyan-medium));
     --input-background: oklch(var(--lch-ink-1));
-    --input-background-focus: white;
+    --input-background-focus: oklch(var(--lch-ink-1));
     --input-border-radius: var(--radius-md);
     --input-border-color: oklch(var(--lch-ink-3));
-    --input-border-focus: oklch(var(--lch-sage-medium));
+    --input-border-focus: oklch(var(--lch-cyan-medium));
     --input-border-size: 1.5px;
     --input-color: var(--color-ink);
     --input-padding: 0.875em 1.125em;
@@ -40,7 +40,7 @@
   .input:focus {
     background-color: var(--input-background-focus);
     border-color: var(--input-border-focus);
-    box-shadow: var(--glow-sage);
+    box-shadow: var(--glow-cyan);
     outline: none;
   }
 
@@ -108,11 +108,11 @@
   /* Autofill styling */
   .input:autofill,
   .input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px oklch(var(--lch-sage-lightest)) inset;
+    -webkit-box-shadow: 0 0 0px 1000px oklch(var(--lch-cyan-lightest)) inset;
     -webkit-text-fill-color: var(--color-ink);
   }
 
-  /* Switch/Toggle - More organic pill shape */
+  /* Switch/Toggle - Sharp pill shape */
   .switch {
     block-size: 1.875em;
     border-radius: var(--radius-full);
@@ -133,7 +133,7 @@
 
   .switch__btn {
     --switch-off: oklch(var(--lch-ink-4));
-    --switch-on: oklch(var(--lch-sage-medium));
+    --switch-on: oklch(var(--lch-cyan-medium));
     background-color: var(--switch-off);
     block-size: 100%;
     border-radius: inherit;
@@ -165,7 +165,7 @@
   }
 
   .switch__input:focus-visible + .switch__btn {
-    box-shadow: var(--glow-sage);
+    box-shadow: var(--glow-cyan);
   }
 
   .switch__input:disabled + .switch__btn {
@@ -189,9 +189,9 @@
 
   .btn:has(input[type="radio"]:checked),
   .btn:has(input[type="checkbox"]:checked) {
-    --btn-background: oklch(var(--lch-sage-medium));
-    --btn-border-color: oklch(var(--lch-sage-medium));
-    --btn-color: white;
+    --btn-background: oklch(var(--lch-cyan-medium));
+    --btn-border-color: oklch(var(--lch-cyan-medium));
+    --btn-color: oklch(var(--lch-ink-1));
   }
 
   /* Input group with icon */

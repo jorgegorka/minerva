@@ -1,0 +1,80 @@
+# frozen_string_literal: true
+
+require "minitest/autorun"
+require "securerandom"
+require_relative "../../../lib/drive/tmux"
+
+class Drive::TmuxTest < Minitest::Test
+  def test_require_tmux_returns_path
+    path = Drive::Tmux.require_tmux
+    assert path.is_a?(String)
+    assert path.include?("tmux")
+  end
+
+  def test_resolve_target_without_pane
+    assert_equal "mysession:", Drive::Tmux.resolve_target("mysession")
+  end
+
+  def test_resolve_target_with_pane
+    assert_equal "mysession:.2", Drive::Tmux.resolve_target("mysession", "2")
+  end
+
+  def test_session_info_data_class
+    info = Drive::Tmux::SessionInfo.new(name: "test", windows: 1, created: "now", attached: false)
+    assert_equal "test", info.name
+    assert_equal 1, info.windows
+    h = info.to_h
+    assert_equal "test", h[:name]
+  end
+end
+
+class Drive::TmuxIntegrationTest < Minitest::Test
+  def setup
+    @session = "drive_tmux_#{$$}_#{SecureRandom.hex(4)}"
+  end
+
+  def teardown
+    system("tmux kill-session -t #{@session} 2>/dev/null")
+  end
+
+  def test_create_list_kill_session
+    Drive::Tmux.create_session(@session, detach: true)
+    assert Drive::Tmux.session_exists?(@session)
+
+    sessions = Drive::Tmux.list_sessions
+    names = sessions.map(&:name)
+    assert_includes names, @session
+
+    Drive::Tmux.kill_session(@session)
+    refute Drive::Tmux.session_exists?(@session)
+  end
+
+  def test_create_duplicate_session_raises
+    Drive::Tmux.create_session(@session, detach: true)
+    assert_raises(Drive::SessionExistsError) do
+      Drive::Tmux.create_session(@session, detach: true)
+    end
+  end
+
+  def test_require_session_raises_for_missing
+    assert_raises(Drive::SessionNotFoundError) do
+      Drive::Tmux.require_session("nonexistent_#{SecureRandom.hex(4)}")
+    end
+  end
+
+  def test_send_keys_and_capture_pane
+    Drive::Tmux.create_session(@session, detach: true)
+    Drive::Tmux.send_keys(@session, "echo HELLO_DRIVE_TEST", enter: true, literal: false)
+    sleep 0.5
+    content = Drive::Tmux.capture_pane(@session)
+    assert_match(/HELLO_DRIVE_TEST/, content)
+  end
+
+  def test_capture_pane_with_scrollback
+    Drive::Tmux.create_session(@session, detach: true)
+    Drive::Tmux.send_keys(@session, "echo LINE_ONE", enter: true, literal: false)
+    sleep 0.3
+    content = Drive::Tmux.capture_pane(@session, start_line: -50)
+    assert_match(/LINE_ONE/, content)
+  end
+end

@@ -1,0 +1,16 @@
+<div class="container mt-4">
+  <h1>Projects</h1>
+  <ul>
+    <% @projects.each do |project| %>
+      <li>
+        <%= project.name %>
+        <% if project == Current.project %>
+          (current)
+        <% else %>
+          <%= button_to "Switch", switch_project_path(project), method: :post, class: "btn btn--small" %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+  <%= link_to "New Project", new_project_path, class: "btn btn--primary" %>
+</div>

@@ -1,4 +1,6 @@
 class McpController < ApplicationController
+  skip_before_action :set_current_project
+
   def index
     server = MCP::Server.new(
       name: "rails_mcp",

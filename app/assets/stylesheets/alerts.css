@@ -1,6 +1,6 @@
 /*
  * Minerva Alert Styles
- * Soft & Organic Design System
+ * Dark Terminal / Cyber Interface Design System
  * Notification and alert components
  */
 
@@ -28,7 +28,7 @@
     margin-block-end: 0;
   }
 
-  /* Positive/Success variant - Soft teal tint */
+  /* Positive/Success variant */
   .alert--positive {
     --alert-bg: oklch(var(--lch-green-light));
     --alert-color: oklch(var(--lch-green-dark));
@@ -36,7 +36,7 @@
     --alert-accent: oklch(var(--lch-green-medium));
   }
 
-  /* Negative/Error variant - Soft coral tint */
+  /* Negative/Error variant */
   .alert--negative {
     --alert-bg: oklch(var(--lch-red-light));
     --alert-color: oklch(var(--lch-red-dark));
@@ -44,7 +44,7 @@
     --alert-accent: oklch(var(--lch-red-medium));
   }
 
-  /* Warning variant - Soft amber tint */
+  /* Warning variant */
   .alert--warning {
     --alert-bg: oklch(var(--lch-yellow-light));
     --alert-color: oklch(var(--lch-yellow-dark));
@@ -52,7 +52,7 @@
     --alert-accent: oklch(var(--lch-yellow-medium));
   }
 
-  /* Info variant - Soft blue tint */
+  /* Info variant */
   .alert--info {
     --alert-bg: oklch(var(--lch-blue-light));
     --alert-color: oklch(var(--lch-blue-dark));
@@ -60,12 +60,12 @@
     --alert-accent: oklch(var(--lch-blue-medium));
   }
 
-  /* Sage variant - Matches primary accent */
-  .alert--sage {
-    --alert-bg: oklch(var(--lch-sage-lightest));
-    --alert-color: oklch(var(--lch-sage-dark));
-    --alert-border-color: oklch(var(--lch-sage-medium) / 30%);
-    --alert-accent: oklch(var(--lch-sage-medium));
+  /* Cyan variant - Matches primary accent */
+  .alert--cyan {
+    --alert-bg: oklch(var(--lch-cyan-lightest));
+    --alert-color: oklch(var(--lch-cyan-dark));
+    --alert-border-color: oklch(var(--lch-cyan-medium) / 30%);
+    --alert-accent: oklch(var(--lch-cyan-medium));
   }
 
   /* Alert with list (for error messages) */

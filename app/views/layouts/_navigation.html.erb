@@ -1,7 +1,7 @@
 <nav class="site-nav" aria-label="Main navigation">
   <div class="site-nav__inner">
     <%= link_to root_path, class: "site-nav__brand" do %>
-      <span class="site-nav__brand-icon" aria-hidden="true">&#x1F989;</span>MINERVA
+      <span class="site-nav__brand-icon" aria-hidden="true">&#x26A1;</span>MINERVA
     <% end %>
 
     <div class="site-nav__spacer"></div>
@@ -19,6 +19,10 @@
       <li class="site-nav__item">
         <%= link_to "Sites", sites_path, class: nav_link_class("sites") %>
       </li>
+      <li class="site-nav__item">
+        <%= link_to "Consoles", consoles_path, class: nav_link_class("consoles") %>
+      </li>
+      <%= render "layouts/project_switcher" %>
     </ul>
 
     <div class="site-nav__spacer"></div>
