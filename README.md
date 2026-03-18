@@ -7,11 +7,14 @@ A Rails 8 MCP (Model Context Protocol) server that provides a knowledge base for
 
 ## Features
 
-- **Document Management** - Create and organize markdown documents via web UI
-- **PDF Processing** - Upload PDFs with automatic text extraction
-- **Website Scraping** - Import content from web pages and crawl entire sites
-- **RAG Search** - Vector similarity search powered by pgvector embeddings
-- **MCP Interface** - Connect directly to Claude, Cursor, or any MCP-compatible AI agent
+- **Multi-Project Support** — Organize your knowledge base into separate projects with automatic data isolation and easy switching
+- **Document Management** — Create and organize markdown documents via web UI
+- **PDF Processing** — Upload PDFs with automatic text extraction
+- **Website Scraping** — Import content from web pages and crawl entire sites
+- **RAG Search** — Vector similarity search powered by pgvector embeddings
+- **MCP Interface** — Connect directly to Claude, Cursor, or any MCP-compatible AI agent
+- **Drive CLI** — Tmux-based terminal automation for managing sessions, running commands, and process management
+- **Console UI** — Web-based terminal session viewer with live output, process monitoring, and session management
 
 ## Requirements
 
@@ -78,10 +81,35 @@ Add to your MCP settings:
 
 ## Usage
 
-1. **Add Documents** - Use the web UI to create markdown documents or upload PDFs
-2. **Scrape Websites** - Add site URLs to automatically import their content
-3. **Organize** - Use categories to organize your knowledge base
-4. **Query** - Your AI agent can now search and retrieve relevant documents via the `DocumentSearch` tool
+1. **Create a Project** — Set up a project to organize your knowledge base (all content is scoped per project)
+2. **Add Documents** — Use the web UI to create markdown documents or upload PDFs
+3. **Scrape Websites** — Add site URLs to automatically import their content
+4. **Organize** — Use categories to organize your knowledge base
+5. **Query** — Your AI agent can search and retrieve relevant documents via the `DocumentSearch` tool
+
+> **Note:** The MCP endpoint at `/mcp` serves documents globally across all projects, so your AI agent has access to your entire knowledge base regardless of which project is active in the UI.
+
+## Drive CLI
+
+Drive is a tmux-based terminal automation tool for managing sessions, running commands, and monitoring processes. Entry point: `bin/drive`.
+
+**Key commands:**
+
+| Command | Description |
+|---------|-------------|
+| `drive session create NAME` | Create a new tmux session |
+| `drive session list` | List all tmux sessions |
+| `drive session kill NAME` | Kill a tmux session |
+| `drive run SESSION CMD` | Run a command and wait for completion |
+| `drive send SESSION TEXT` | Send raw keystrokes to a session |
+| `drive logs SESSION` | Capture pane output |
+| `drive poll SESSION` | Wait for output matching a pattern |
+| `drive fanout CMD` | Run a command across multiple sessions in parallel |
+| `drive proc list` | List processes with filtering |
+| `drive proc kill PID` | Kill processes by PID or name |
+| `drive proc tree PID` | Show process tree |
+
+**Console UI** — A web interface at `/consoles` lets you view tmux sessions, monitor running processes, and send commands directly from the browser.
 
 ## Development
 
@@ -94,9 +122,11 @@ bin/brakeman --no-pager          # Security scan
 
 ## Architecture
 
+- **Multi-Project Scoping** — `Current.project` and `ProjectScoped` concern provide automatic per-project data isolation
 - **PostgreSQL** with pgvector for vector storage (768-dim embeddings, HNSW index)
 - **Solid Queue/Cache/Cable** for background jobs and caching (no Redis required)
 - **Propshaft + importmap-rails** for assets (no Node.js required)
+- **Drive CLI** — Tmux automation layer in `lib/drive/` with web console at `/consoles`
 - **Kamal** for deployment
 
 ## Contributors
